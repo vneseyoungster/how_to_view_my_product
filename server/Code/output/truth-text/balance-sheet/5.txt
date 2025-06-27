@@ -1,0 +1,17 @@
+	2023 VND million	2022 VND million
+I. Profit or loss		
+Revenue	51,465,324	51,455,897
+Cost of sales	-36,962,188	-37,518,671
+Gross profit	14,503,136	13,937,226
+Other income	247,786	151,747
+Selling expenses	-3,746,874	-3,500,662
+General and administration expenses	-1,738,545	-1,377,806
+Other losses – net	-149,501	-405,340
+Results from operating activities	9,116,002	8,805,165
+Finance income	1,546,046	1,210,690
+Finance cost	-385,730	-188,394
+Net finance income	1,160,316	1,022,296
+Share of loss of equity accounted investees	-80,631	-24,476
+Profit before tax	10,195,687	9,802,985
+Income tax	-1,948,545	-1,917,959
+Net profit	8,247,142	7,885,026

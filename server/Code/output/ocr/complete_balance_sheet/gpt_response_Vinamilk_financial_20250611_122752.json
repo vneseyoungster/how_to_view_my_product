@@ -1,0 +1,141 @@
+{
+  "documentInfo": {
+    "title": "",
+    "documentType": "",
+    "periodEndDate": "",
+    "currency": "VND",
+    "unit": "million",
+    "columns": [
+      "2023",
+      "2022"
+    ]
+  },
+  "lineItems": [
+    {
+      "description": "Revenue",
+      "note": null,
+      "values": {
+        "2023": 51465324,
+        "2022": 51455897
+      }
+    },
+    {
+      "description": "Cost of sales",
+      "note": null,
+      "values": {
+        "2023": -36962188,
+        "2022": -37518671
+      }
+    },
+    {
+      "description": "Gross profit",
+      "note": null,
+      "values": {
+        "2023": 14503136,
+        "2022": 13937226
+      }
+    },
+    {
+      "description": "Other income",
+      "note": null,
+      "values": {
+        "2023": 247786,
+        "2022": 151747
+      }
+    },
+    {
+      "description": "Selling expenses",
+      "note": null,
+      "values": {
+        "2023": -3746874,
+        "2022": -3500662
+      }
+    },
+    {
+      "description": "General and administration expenses",
+      "note": null,
+      "values": {
+        "2023": -1738545,
+        "2022": -1377806
+      }
+    },
+    {
+      "description": "Other losses - net.",
+      "note": null,
+      "values": {
+        "2023": -149501,
+        "2022": -405340
+      }
+    },
+    {
+      "description": "Results from operating activities",
+      "note": null,
+      "values": {
+        "2023": 9116002,
+        "2022": 8805165
+      }
+    },
+    {
+      "description": "Finance income",
+      "note": null,
+      "values": {
+        "2023": 1546046,
+        "2022": 1210690
+      }
+    },
+    {
+      "description": "Finance cost",
+      "note": null,
+      "values": {
+        "2023": -385730,
+        "2022": -188394
+      }
+    },
+    {
+      "description": "Net finance income",
+      "note": null,
+      "values": {
+        "2023": 1160316,
+        "2022": 1022296
+      }
+    },
+    {
+      "description": "Share of loss of equity accounted investees.",
+      "note": null,
+      "values": {
+        "2023": -80631,
+        "2022": -24476
+      }
+    },
+    {
+      "description": "Profit before tax",
+      "note": null,
+      "values": {
+        "2023": 10195687,
+        "2022": 9802985
+      }
+    },
+    {
+      "description": "Income tax",
+      "note": null,
+      "values": {
+        "2023": -1948545,
+        "2022": -1917959
+      }
+    },
+    {
+      "description": "Net profit",
+      "note": null,
+      "values": {
+        "2023": 8247142,
+        "2022": 7885026
+      }
+    }
+  ],
+  "totals": [],
+  "otherInfo": {
+    "signatories": [],
+    "preparedDate": "",
+    "preparedLocation": ""
+  }
+}

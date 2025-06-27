@@ -1,0 +1,29 @@
+No.	Items	Notes	Current period From 01/01/2024 to 31/12/2024	Previous period From 01/01/2023 to 31/12/2023
+Cashflow from operating activities				
+1	Interest and similar income received		135,683,986	149,297,819
+2	Interest and similar expenses paid		-86,044,710	-88,243,401
+3	Income from services		7,073,571	6,569,871
+4	Net gain/loss from trading (foreign currencies, gold and securities)		10,853,510	8,389,150
+5	Other (expenses)		-3,150,577	-3,373,336
+6	Recoveries from bad debts written-off or compensated by provision for credit losses		8,108,024	5,431,863
+7	Payments for operating and sales expenses		-25,801,747	-23,440,129
+8	Corporate income tax paid during the period	12	-6,884,931	-4,551,443
+Net cashflows from operating activities before changes in operating assets and working capital			39,837,126	50,080,394
+Changes in operating assets				
+9	(Increase)/Decrease in placement with and loans to other credit institutions		-8,765,806	-1,064,184
+10	(Increase)/Decrease in trading securities		-66,507,396	8,284,842
+11	(Increase)/Decrease in derivatives and other financial assets		-663,256	1,038,214
+12	(Increase)/Decrease in loans to customers		-278,417,535	-255,443,174
+13	Decrease in provision for credit losses loans to customers, securities, long-term investments)	4	-23,561,854	-17,924,823
+14	(Increase)/Decrease in other operating assets		-1,560,690	-4,556,063
+Changes in operating liabilities				
+15	Increase/(Decrease) in borrowings from Central banks and the Government		132,492,470	-116,856,229
+16	Increase/(Decrease) in deposits and borrowings from other credit institutions		51,125,391	4,609,693
+17	Increase/(Decrease) in customers deposits		248,480,309	231,092,037
+18	Increase/(Decrease) in valuable papers issuance (excluding valuable papers issued for financing activities)		9,413,429	32,435,138
+19	Increase/(Decrease) in grants, trusted funds and borrowings that the bank bears risk		-226,262	-1,029,896
+20	Increase/(Decrease) in derivatives and other financial liabilities		-328,155	328,154
+21	Increase/(Decrease) in other operating liabilities		-237,687	-2,007,926
+				
+21	Payments from credit institution's reserves	13		-1,164
+I	Net cashflows from operating activities		101,080,084	-71,014,987

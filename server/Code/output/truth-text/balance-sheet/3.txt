@@ -1,0 +1,18 @@
+Code	ITEMS	Notes	31 December 2023&lt;br>VND	31 December 2022&lt;br>VND
+	A. ASSETS OF THE COMPANY AND ASSETS MANAGED UNDER AGREEMENTS			
+4	Bad debts written-off	23.1	470,931,553	174,689,225
+5	Foreign currencies		936	936
+8	Financial assets listed/registered for trading at VSDC of the Company (VND)	23.2	1,221,030,300,000	156,514,890,000
+9	Non-traded financial assets deposited at VSDC of the Company (VND)	23.3	3,250,760,000	60,000
+10	Awaiting financial assets of the Company (VND)	23.4	7,100,000,000	1,898,000,000
+12	Financial assets which have not been deposited at VSDC of the Company (VND)	23.5	44,477,490,000	44,477,130,000
+	B. ASSETS AND PAYABLES UNDER AGREEMENT WITH INVESTORS			
+21	Financial assets listed/registered for trading at VSDC of investors (VND)	23.6	64,452,891,190,000	43,807,553,090,000
+21.1	Unrestricted financial assets		55,775,296,400,000	34,623,702,940,000
+21.2	Restricted financial assets		211,277,970,000	365,866,730,000
+21.3	Mortgaged financial assets		7,983,849,540,000	8,518,533,400,000
+21.4	Blocked financial assets		771,950,000	650,670,000
+21.5	Financial assets awaiting settlement		481,695,330,000	298,799,350,000
+22	Non-traded financial assets deposited at VSDC of investors (VND)	23.7	465,479,160,000	204,283,490,000
+22.1	Unrestricted and non-traded financial assets deposited at VSDC		117,266,620,000	94,791,310,000
+22.2	Restricted and non-traded financial assets deposited at VSDC		348,212,540,000	109,492,180,000

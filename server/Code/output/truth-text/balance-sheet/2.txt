@@ -1,0 +1,28 @@
+	Notes	2018 &lt;br> VND million	2017 &lt;br> (reclassified) &lt;br> VND million
+Interest and similar income	11	20,655,848	16,987,412
+Interest and similar expenses	12	-10,083,472	-8,658,092
+Net interest income		10,572,376	8,329,380
+Fee and commission income		4,799,247	4,715,883
+Fee and commission expenses		-915,737	-556,782
+Net fee and commission income	13	3,883,510	4,159,101
+Net trading income	14	747,866	1,003,182
+Other operating income	15	4,012,462	2,738,327
+Total operating income		19,216,214	16,223,990
+Credit loss expense on financial assets	16	-1,410,703	-2,741,205
+Net operating income		17,805,511	13,482,785
+Personnel expenses	17	-4,188,385	-2,656,411
+Operating lease expenses		-461,748	-441,778
+Depreciation of property and equipment	29	-168,180	-185,948
+Amortization of intangible assets	30	-90,423	-94,193
+Other operating expenses	18	-2,457,795	-1,643,583
+Total operating expenses		-7,338,531	-5,022,913
+Profit before tax		10,466,980	8,459,872
+Current income tax expense	19	-2,186,246	-1,664,816
+Deferred tax expense	20	-172,929	-118,630
+Net profit for the year		8,108,805	6,776,426
+Attributable to:			
+Equity holders of the Bank		8,094,967	6,776,426
+Non-controlling interest		13,838	-
+		8,108,805	6,776,426
+Earnings per share			
+Basic earnings per share (VND)	21	3,649	8,115

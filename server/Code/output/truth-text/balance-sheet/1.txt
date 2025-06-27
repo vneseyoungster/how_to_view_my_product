@@ -1,0 +1,15 @@
+No.	Items	Notes	31/12/2024	31/12/2023 (*)
+1	Credit guarantees		7,003,470	6,753,573
+2	Foreign exchange commitments		167,933,388	1,433,870
+a	Foreign currency purchase commitments		2,333,456	846,669
+b	Foreign currency sale commitments		2,666,274	587,201
+c	Incoming currency swap commitments		81,135,201	-
+d	Outgoing currency swap commitments		81,798,457	-
+3	Letter of credit commitments		62,266,136	83,174,919
+4	Other guarantees		199,424,464	199,816,234
+5	Other commitments		14,707,558	24,005,803
+6	Uncollected interest from loans and fee receivables		21,503,201	17,967,080
+7	Doubtful debt written-off		254,095,195	221,408,245
+a	Principal of bad debts written off		130,057,439	113,065,497
+b	Interest of bad debts written off		124,037,756	108,342,748
+8	Other assets and documents		66,302,239	79,744,369

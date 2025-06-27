@@ -1,0 +1,14 @@
+Code	ITEMS	Notes	31 December 2023 VND	31 December 2022 VND
+	B. ASSETS AND PAYABLES UNDER AGREEMENT WITH INVESTORS (continued)			
+23	Awaiting financial assets of investors	23.8	258,808,960,000	162,338,870,000
+26	Investors' deposits (VND)		4,788,950,764,631	2,869,444,391,170
+27	Investors' deposits for securities trading activities managed by the Company (VND)	23.9	3,362,961,767,240	2,098,736,026,116
+28	Investor's synthesizing deposits for securities trading activities (VND)	23.9	1,137,331,492,966	476,274,313,202
+29	Clearing deposits and payment of securities transactions (VND)	23.9	3,971,715,323	3,964,701,824
+	a. Clearing deposits and payment of securities transactions by domestic investors		2,336,410,532	2,331,557,929
+	b. Clearing deposits and payment of securities transactions by foreign investors		1,635,304,791	1,633,143,895
+30	Deposits of securities issuers	23.1	284,685,789,102	290,469,350,028
+31	Payables to investors - investors' deposits for securities trading activities managed by the Company (VND)	23	4,504,511,707,130	2,579,230,392,123
+31.1	Payables to domestic investors for securities trading activities managed by the Company		4,007,118,080,582	2,258,723,743,606
+31.2	Payables to foreign investors for securities trading activities managed by the Company		497,393,626,548	320,506,648,517
+35	Dividend, bond principal and interest payables (VND)	23	284,439,057,501	290,213,999,047
