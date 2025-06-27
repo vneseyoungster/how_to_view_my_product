@@ -1,0 +1,79 @@
+# Task ID: 22
+# Title: Update ViewResults/index.ts to Export AllKindResultPage
+# Status: pending
+# Dependencies: 18, 13
+# Priority: low
+# Description: Update the ViewResults/index.ts file to export the new AllKindResultPage component and related utilities to maintain proper module organization.
+# Details:
+This task involves updating the ViewResults/index.ts file to properly export the AllKindResultPage component and any related utilities:
+
+1. Locate the existing ViewResults/index.ts file and add the new export:
+```tsx
+// ViewResults/index.ts
+
+// Existing exports
+export { ViewResultsPage } from './ViewResultsPage';
+export { BaseResultsPage } from './BaseResultsPage';
+export { useBaseResultsPage } from './hooks/useBaseResultsPage';
+export { BalanceSheetResultsPage } from './BalanceSheetResultsPage';
+// ... other existing exports
+
+// Add new exports
+export { AllKindResultPage } from './AllKindResultPage';
+// Export any related types or utilities specific to AllKindResultPage
+export type { AllKindResultPageProps } from './AllKindResultPage';
+export { useAllKindResultData } from './hooks/useAllKindResultData'; // If such a hook exists
+```
+
+2. Verify the import paths are correct and the components exist at the specified locations.
+
+3. Check for any additional types, interfaces, or utility functions that should be exported alongside the AllKindResultPage component.
+
+4. Ensure the export structure follows the established pattern in the codebase.
+
+5. Review for potential circular dependencies:
+   - Check that AllKindResultPage doesn't import from index.ts
+   - Verify that components imported by AllKindResultPage don't create circular reference chains
+
+6. Update any JSDoc comments or module documentation to reflect the new exports.
+
+7. If there are any re-exports of types from external libraries that are used by AllKindResultPage, ensure those are also included.
+
+# Test Strategy:
+1. Verify the export syntax is correct:
+   - Run TypeScript compiler to check for any syntax or type errors
+   - Ensure no duplicate exports exist
+
+2. Test importing the component from the index file:
+   ```tsx
+   import { AllKindResultPage } from '../pages/ViewResults';
+   ```
+
+3. Create a simple test component that imports and renders the AllKindResultPage:
+   ```tsx
+   import React from 'react';
+   import { render } from '@testing-library/react';
+   import { AllKindResultPage } from '../pages/ViewResults';
+   
+   test('AllKindResultPage can be imported from index', () => {
+     const { container } = render(<AllKindResultPage />);
+     expect(container).toBeInTheDocument();
+   });
+   ```
+
+4. Check for circular dependencies:
+   - Use a tool like `madge` to analyze the dependency graph:
+   ```
+   npx madge --circular --extensions ts,tsx src/
+   ```
+
+5. Verify the build process completes successfully:
+   - Run the build command to ensure no compilation errors
+   - Check that the bundled output includes the new component
+
+6. Test the application in development mode:
+   - Start the development server
+   - Navigate to routes that use the AllKindResultPage
+   - Verify the component loads correctly
+
+7. Check import statements in existing files that should use the new exports to ensure they're importing from the index file rather than directly from the component file.

@@ -1,0 +1,18 @@
+# Task ID: 5
+# Title: Implement AssetsResultsPage Component
+# Status: cancelled
+# Dependencies: 1
+# Priority: low
+# Description: This task has been deprecated as the Assets page has been removed from the project scope.
+# Details:
+**TASK DEPRECATED**
+
+As per updated user requirements, the application only needs three document-specific pages:
+1. Balance Sheet
+2. Cash Flow
+3. Income Statement
+
+The Assets page has been removed from the scope, so this component implementation is no longer needed.
+
+# Test Strategy:
+No testing required as this component has been removed from the project scope.
