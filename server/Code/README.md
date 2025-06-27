@@ -35,18 +35,27 @@ A comprehensive system for processing financial documents using OCR technology a
    cd server/Code
    ```
 
-2. **Install Required Dependencies**
+2. **Create and Activate Virtual Environment**
+   ```bash
+   # Create virtual environment
+   python -m venv venv
+   
+   # Activate virtual environment
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
+
+3. **Install Required Dependencies**
    ```bash
    pip install -r requirements.txt
    ```
 
-3. **Configure Environment Variables**
+4. **Configure Environment Variables**
    ```bash
    # Create .env file with your OpenAI API key
    echo "OPENAI_API_KEY=your_openai_api_key_here" > .env
    ```
 
-4. **Launch Application**
+5. **Launch Application**
    ```bash
    python app.py
    ```
