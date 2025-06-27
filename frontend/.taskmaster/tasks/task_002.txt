@@ -1,0 +1,50 @@
+# Task ID: 2
+# Title: Implement BalanceSheetResultsPage Component
+# Status: done
+# Dependencies: 1
+# Priority: medium
+# Description: Create the BalanceSheetResultsPage component that extends BaseResultsPage with balance sheet specific functionality and visualizations.
+# Details:
+1. Create a new file BalanceSheetResultsPage.tsx
+2. Extend BaseResultsPage with balance sheet specific configurations
+3. Implement asset allocation and liability breakdown analysis charts
+4. Add document-specific data filtering logic
+5. Configure balance sheet specific UI elements
+
+Example implementation:
+```tsx
+import React from 'react';
+import { BaseResultsPage } from './BaseResultsPage';
+import { AssetAllocationChart } from '../components/charts/AssetAllocationChart';
+import { LiabilityBreakdownChart } from '../components/charts/LiabilityBreakdownChart';
+
+export const BalanceSheetResultsPage: React.FC = () => {
+  // Balance sheet specific state and logic
+  const balanceSheetData = getBalanceSheetDataFromSession();
+  
+  // Document-specific filtering
+  const filteredData = filterBalanceSheetData(balanceSheetData);
+  
+  // Balance sheet specific charts
+  const charts = [
+    <AssetAllocationChart data={filteredData.assets} key="asset-allocation" />,
+    <LiabilityBreakdownChart data={filteredData.liabilities} key="liability-breakdown" />
+  ];
+  
+  return (
+    <BaseResultsPage
+      documentType="balance-sheet"
+      charts={charts}
+      // Other balance sheet specific props
+    />
+  );
+};
+```
+
+# Test Strategy:
+1. Unit test the BalanceSheetResultsPage component
+2. Verify correct rendering of balance sheet specific charts
+3. Test document-specific data filtering
+4. Ensure proper integration with BaseResultsPage
+5. Test with mock balance sheet data
+6. Verify responsive design for different screen sizes

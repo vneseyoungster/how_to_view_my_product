@@ -1,0 +1,265 @@
+# Task ID: 21
+# Title: Enhance Data Handling for Missing Financial Data
+# Status: pending
+# Dependencies: 18, 14, 8
+# Priority: medium
+# Description: Improve data display and error handling for missing or incomplete financial data across all chart types in the AllKindResultPage.
+# Details:
+This task involves enhancing the AllKindResultPage component to gracefully handle missing or incomplete financial data:
+
+1. Implement fallback UI components:
+```tsx
+// Create a reusable NoDataAvailable component
+const NoDataAvailable = ({ message = "Data is not available to display" }: { message?: string }) => (
+  <Box 
+    sx={{ 
+      display: 'flex', 
+      flexDirection: 'column', 
+      alignItems: 'center', 
+      justifyContent: 'center',
+      p: 3,
+      border: '1px dashed #ccc',
+      borderRadius: 1,
+      backgroundColor: '#f9f9f9',
+      minHeight: '200px'
+    }}
+  >
+    <InfoOutlinedIcon sx={{ fontSize: 48, color: 'text.secondary', mb: 2 }} />
+    <Typography variant="body1" color="text.secondary" align="center">
+      {message}
+    </Typography>
+  </Box>
+);
+```
+
+2. Enhance chart components to handle missing data:
+```tsx
+// Update chart rendering in AllKindResultPage.tsx
+const renderChart = (chartType: string, data: any) => {
+  // Check if data exists and has required properties
+  if (!data || !data.labels || !data.datasets || data.datasets.length === 0) {
+    return (
+      <NoDataAvailable 
+        message={`${chartType} data is not available or incomplete. Please upload a document with complete ${chartType} information.`} 
+      />
+    );
+  }
+  
+  // Render appropriate chart based on chartType
+  switch (chartType) {
+    case 'barChart':
+      return <BarChart data={data} />;
+    case 'lineChart':
+      return <LineChart data={data} />;
+    // Other chart types...
+    default:
+      return <NoDataAvailable message="Unknown chart type" />;
+  }
+};
+```
+
+3. Implement loading states for data availability checks:
+```tsx
+// In AllKindResultPage.tsx
+const [dataLoadingStates, setDataLoadingStates] = useState({
+  balanceSheet: true,
+  cashFlow: true,
+  incomeStatement: true,
+  assets: true
+});
+
+// Update loading state for specific data type
+const updateLoadingState = (dataType: keyof typeof dataLoadingStates, isLoading: boolean) => {
+  setDataLoadingStates(prev => ({
+    ...prev,
+    [dataType]: isLoading
+  }));
+};
+
+// Render loading or content based on state
+const renderSection = (dataType: keyof typeof dataLoadingStates, content: React.ReactNode) => {
+  return dataLoadingStates[dataType] ? (
+    <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+      <CircularProgress size={40} />
+    </Box>
+  ) : content;
+};
+```
+
+4. Implement consistent error handling across chart types:
+```tsx
+// Add error handling to data fetching in AllKindResultPage.tsx
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      // Set all loading states to true
+      Object.keys(dataLoadingStates).forEach(key => {
+        updateLoadingState(key as keyof typeof dataLoadingStates, true);
+      });
+      
+      // Fetch data for each financial document type
+      const balanceSheetData = await getFilteredFinancialData('balance-sheet');
+      updateLoadingState('balanceSheet', false);
+      setBalanceSheetData(balanceSheetData || null);
+      
+      const cashFlowData = await getFilteredFinancialData('cash-flow');
+      updateLoadingState('cashFlow', false);
+      setCashFlowData(cashFlowData || null);
+      
+      // Continue for other data types...
+    } catch (error) {
+      // Handle errors and update UI accordingly
+      console.error('Error fetching financial data:', error);
+      setError('Failed to load financial data. Please try again later.');
+      
+      // Set all loading states to false
+      Object.keys(dataLoadingStates).forEach(key => {
+        updateLoadingState(key as keyof typeof dataLoadingStates, false);
+      });
+    }
+  };
+  
+  fetchData();
+}, []);
+```
+
+5. Add user-friendly messaging for different data scenarios:
+```tsx
+// Define different message types based on data scenarios
+const getDataMessage = (dataType: string, errorType?: string) => {
+  switch (errorType) {
+    case 'missing':
+      return `No ${dataType} data available. Please upload a document containing ${dataType} information.`;
+    case 'incomplete':
+      return `The ${dataType} data is incomplete. Some charts may not display correctly.`;
+    case 'format':
+      return `The ${dataType} data format is incorrect. Please ensure you're uploading a valid financial document.`;
+    case 'processing':
+      return `There was an error processing the ${dataType} data. Please try uploading the document again.`;
+    default:
+      return `${dataType} data is not available to display.`;
+  }
+};
+```
+
+6. Ensure accessibility compliance for error states:
+```tsx
+// Update NoDataAvailable component with accessibility attributes
+const NoDataAvailable = ({ message = "Data is not available to display", errorType = "info" }: { message?: string, errorType?: "info" | "warning" | "error" }) => {
+  // Choose icon based on error type
+  const IconComponent = errorType === "error" ? ErrorOutlineIcon : 
+                        errorType === "warning" ? WarningAmberIcon : 
+                        InfoOutlinedIcon;
+  
+  return (
+    <Box 
+      role="alert"
+      aria-live="polite"
+      sx={{ 
+        display: 'flex', 
+        flexDirection: 'column', 
+        alignItems: 'center', 
+        justifyContent: 'center',
+        p: 3,
+        border: '1px dashed #ccc',
+        borderRadius: 1,
+        backgroundColor: '#f9f9f9',
+        minHeight: '200px'
+      }}
+    >
+      <IconComponent 
+        sx={{ 
+          fontSize: 48, 
+          color: errorType === "error" ? "error.main" : 
+                 errorType === "warning" ? "warning.main" : 
+                 "text.secondary", 
+          mb: 2 
+        }} 
+      />
+      <Typography variant="body1" color="text.secondary" align="center">
+        {message}
+      </Typography>
+    </Box>
+  );
+};
+```
+
+7. Integration with existing components:
+   - Update the AllKindResultPage to use these enhanced error handling components
+   - Ensure consistent error handling across all chart types
+   - Maintain visual consistency with the rest of the application
+
+# Test Strategy:
+1. Unit Testing:
+   - Create unit tests for the NoDataAvailable component:
+   ```tsx
+   test('NoDataAvailable renders with default message', () => {
+     render(<NoDataAvailable />);
+     expect(screen.getByText('Data is not available to display')).toBeInTheDocument();
+   });
+   
+   test('NoDataAvailable renders with custom message', () => {
+     render(<NoDataAvailable message="Custom error message" />);
+     expect(screen.getByText('Custom error message')).toBeInTheDocument();
+   });
+   
+   test('NoDataAvailable uses correct icon based on error type', () => {
+     const { rerender } = render(<NoDataAvailable errorType="info" />);
+     expect(screen.getByRole('alert')).toBeInTheDocument();
+     
+     rerender(<NoDataAvailable errorType="warning" />);
+     expect(screen.getByRole('alert')).toBeInTheDocument();
+     
+     rerender(<NoDataAvailable errorType="error" />);
+     expect(screen.getByRole('alert')).toBeInTheDocument();
+   });
+   ```
+
+2. Integration Testing:
+   - Test the AllKindResultPage with various data scenarios:
+   ```tsx
+   test('AllKindResultPage handles missing data correctly', async () => {
+     // Mock getFilteredFinancialData to return null for balance sheet
+     jest.spyOn(dataUtils, 'getFilteredFinancialData').mockImplementation((docType) => {
+       if (docType === 'balance-sheet') return Promise.resolve(null);
+       return Promise.resolve(mockFinancialData);
+     });
+     
+     render(<AllKindResultPage />);
+     
+     // Verify loading state appears
+     expect(screen.getAllByRole('progressbar')).toHaveLength(4);
+     
+     // Wait for data to load
+     await waitForElementToBeRemoved(() => screen.getAllByRole('progressbar'));
+     
+     // Verify error message for balance sheet
+     expect(screen.getByText(/balance sheet data is not available/i)).toBeInTheDocument();
+     
+     // Verify other charts render correctly
+     expect(screen.getByTestId('cash-flow-chart')).toBeInTheDocument();
+   });
+   ```
+
+3. Visual Testing:
+   - Verify that error states are visually consistent with the application design
+   - Check that loading indicators display correctly
+   - Ensure error messages are clearly visible and properly formatted
+
+4. Accessibility Testing:
+   - Test with screen readers to ensure error messages are properly announced
+   - Verify that all error states have appropriate ARIA attributes
+   - Check color contrast for error messages meets WCAG standards
+   - Test keyboard navigation through error states
+
+5. Edge Case Testing:
+   - Test with partially complete data (some metrics missing)
+   - Test with malformed data structures
+   - Test with empty arrays or objects instead of null values
+   - Test with extremely large datasets to ensure performance
+   - Test with multiple simultaneous data loading failures
+
+6. User Acceptance Testing:
+   - Verify that error messages are understandable to end users
+   - Ensure that users can easily understand what action to take when data is missing
+   - Check that the UI remains usable even when some data sections fail to load

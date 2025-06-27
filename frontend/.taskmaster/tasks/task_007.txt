@@ -1,0 +1,85 @@
+# Task ID: 7
+# Title: Update ProcessingDocumentsPage Navigation Logic
+# Status: done
+# Dependencies: 6
+# Priority: high
+# Description: Modify the ProcessingDocumentsPage to determine the appropriate document-specific route based on the uploaded document type.
+# Details:
+1. Update ProcessingDocumentsPage.tsx to determine document type
+2. Implement logic to select the appropriate route based on document type
+3. Handle mixed document type scenarios
+4. Update navigation logic to redirect to the correct document-specific route
+5. Store document type information in session storage
+
+Example implementation:
+```tsx
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+export const ProcessingDocumentsPage: React.FC = () => {
+  const navigate = useNavigate();
+  const [isProcessing, setIsProcessing] = useState(true);
+  
+  useEffect(() => {
+    // Simulate document processing
+    const processingTimeout = setTimeout(() => {
+      setIsProcessing(false);
+      
+      // Get document data from session storage
+      const documentData = JSON.parse(sessionStorage.getItem('documentData') || '{}');
+      
+      // Determine document type
+      const documentType = determineDocumentType(documentData);
+      
+      // Store document type in session storage
+      sessionStorage.setItem('documentType', documentType);
+      
+      // Navigate to the appropriate document-specific route
+      navigate(`/view-results/${documentType}`);
+    }, 3000);
+    
+    return () => clearTimeout(processingTimeout);
+  }, [navigate]);
+  
+  // Function to determine document type
+  const determineDocumentType = (data) => {
+    // Logic to determine document type based on data
+    if (data.hasOwnProperty('assets') && data.hasOwnProperty('liabilities')) {
+      return 'balance-sheet';
+    } else if (data.hasOwnProperty('cashFlows')) {
+      return 'cash-flow';
+    } else if (data.hasOwnProperty('revenue') && data.hasOwnProperty('expenses')) {
+      return 'income-statement';
+    } else if (data.hasOwnProperty('assetAllocation')) {
+      return 'assets';
+    }
+    
+    // Default to balance sheet if unable to determine
+    return 'balance-sheet';
+  };
+  
+  return (
+    <div className="processing-container">
+      {isProcessing ? (
+        <div className="processing-indicator">
+          <h2>Processing your documents...</h2>
+          {/* Processing animation */}
+        </div>
+      ) : (
+        <div className="processing-complete">
+          <h2>Processing complete!</h2>
+          <p>Redirecting to results...</p>
+        </div>
+      )}
+    </div>
+  );
+};
+```
+
+# Test Strategy:
+1. Test document type determination logic with various input data
+2. Verify correct route selection based on document type
+3. Test handling of mixed document type scenarios
+4. Ensure session storage is updated correctly
+5. Test navigation to the appropriate document-specific route
+6. Verify processing state and UI elements

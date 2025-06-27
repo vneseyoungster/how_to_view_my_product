@@ -1,0 +1,26 @@
+# Task ID: 8
+# Title: Implement Document-Specific Data Filtering
+# Status: done
+# Dependencies: 1
+# Priority: high
+# Description: Create utility functions to filter and process data based on document type for use in the document-specific result pages.
+# Details:
+This task has been completed as part of the BaseResultsPage component implementation.
+
+The document-specific data filtering functionality has been implemented directly within the BaseResultsPage component through the `getFilteredFinancialData` function in BaseResultsPage.tsx. This function handles:
+
+1. Filtering financial data by document type (balance-sheet, cash-flow, income-statement, assets)
+2. Comprehensive metric filtering for each document type
+3. Proper error handling for missing or malformed data
+4. Type safety through TypeScript definitions
+
+No separate dataFilters.ts utility file was needed as the functionality was integrated directly into the component that uses it, which is a valid architectural decision that keeps related code together.
+
+# Test Strategy:
+The implemented filtering functionality in BaseResultsPage.tsx should be verified for:
+
+1. Correct filtering of data for each document type
+2. Proper handling of edge cases (missing or malformed data)
+3. Type safety compliance
+4. Performance with various dataset sizes
+5. Integration with the document-specific result pages

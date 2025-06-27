@@ -1,0 +1,94 @@
+# Document-Specific Routes Feature PRD
+
+## Project Overview
+Transform the current single ViewResults page into document-specific routes to provide focused analysis views for different financial document types (Balance Sheet, Cash Flow, Income Statement, Assets).
+
+## Business Requirements
+
+### Goals
+- Provide focused analysis views per document type
+- Improve navigation and URL structure  
+- Enable document-type-specific chart configurations
+- Maintain all existing functionality
+- Support mixed document type scenarios
+
+### User Experience Improvements
+- Focused Analysis: Users can view results specific to their document type
+- Better URLs: Descriptive URLs like `/view-results/income-statement`
+- Targeted Charts: Show only relevant visualizations per document type
+- Improved Navigation: Clear document type context throughout the flow
+
+## Technical Requirements
+
+### New Route Structure
+```
+/view-results/
+├── balance-sheet        → BalanceSheetResultsPage
+├── cash-flow           → CashFlowResultsPage  
+├── income-statement    → IncomeStatementResultsPage
+├── assets             → AssetsResultsPage
+└── [index redirect]   → Default to primary document type
+```
+
+### Document Types
+- Balance Sheet: Asset allocation, liability breakdown analysis
+- Cash Flow: Cash flow trends and components analysis  
+- Income Statement: Revenue, expenses, profit analysis
+- Assets: Asset allocation and composition analysis
+
+### Key Components
+1. BaseResultsPage: Shared logic and utilities for all document-specific pages
+2. Document-Specific Pages: Four specialized pages for each document type
+3. Updated Routing: App.tsx routing configuration updates
+4. Navigation Logic: ProcessingDocumentsPage route determination
+5. Data Filtering: Document-specific data filtering and chart selection
+
+### Data Flow
+- Upload → Processing → Document-Specific Results Page
+- Session storage enhancement with document-type-specific data
+- Chart component mapping based on document type
+- Mock data support for each document type
+
+## Implementation Features
+
+### Files to Create
+- BaseResultsPage.tsx: Shared functionality component
+- BalanceSheetResultsPage.tsx: Balance sheet specific results
+- CashFlowResultsPage.tsx: Cash flow specific results  
+- IncomeStatementResultsPage.tsx: Income statement specific results
+- AssetsResultsPage.tsx: Assets specific results
+
+### Files to Modify
+- App.tsx: Update routing configuration
+- ProcessingDocumentsPage.tsx: Update navigation logic
+- ViewResults/index.ts: Update exports
+
+### Technical Details
+- Document-specific data filtering
+- Chart selection by document type
+- Session storage enhancements
+- Navigation flow updates
+- Error handling and fallback routes
+
+## Success Criteria
+- All four document-specific routes functional
+- Correct data filtering per document type
+- Appropriate chart selection per route
+- Mock data toggle works on all routes
+- Navigation flow updated correctly
+- Page load time < 2 seconds
+- Route switching < 500ms
+- Responsive design maintained
+
+## Migration Strategy
+Phase 1: Foundation - Create BaseResultsPage and extract shared logic
+Phase 2: Routing - Update App.tsx and implement navigation logic
+Phase 3: Data Filtering - Implement document-specific filtering and charts
+Phase 4: UI Polish - Complete page implementations and switching UI
+Phase 5: Testing - Comprehensive testing and documentation
+
+## Risk Mitigation
+- Maintain backward compatibility with existing session storage
+- Provide fallback routes for navigation
+- Centralized chart mapping to avoid configuration errors
+- Comprehensive testing strategy 

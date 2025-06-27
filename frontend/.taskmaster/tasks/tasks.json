@@ -1,0 +1,512 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Create BaseResultsPage Component",
+        "description": "Create a BaseResultsPage component that extracts shared logic and utilities from the current ViewResults page to be used by all document-specific pages.",
+        "details": "1. Create a new file BaseResultsPage.tsx in the ViewResults directory\n2. Extract common functionality from the existing ViewResults page\n3. Implement props interface to accept document-type-specific configurations\n4. Include shared utilities for data processing, chart rendering, and UI components\n5. Implement session storage access for document data\n6. Create hooks for common data operations\n7. Ensure the component is properly typed with TypeScript\n\nExample structure:\n```tsx\nimport React from 'react';\nimport { ChartComponent } from '../components/ChartComponent';\n\ninterface BaseResultsPageProps {\n  documentType: 'balance-sheet' | 'cash-flow' | 'income-statement' | 'assets';\n  charts: React.ReactNode[];\n  // Other document-specific props\n}\n\nexport const BaseResultsPage: React.FC<BaseResultsPageProps> = ({\n  documentType,\n  charts,\n  ...props\n}) => {\n  // Common state and hooks\n  // Data processing logic\n  // Session storage access\n  \n  return (\n    <div className=\"results-container\">\n      <h1>{documentType} Analysis</h1>\n      {/* Common UI elements */}\n      <div className=\"charts-container\">\n        {charts}\n      </div>\n      {/* Other shared UI components */}\n    </div>\n  );\n};\n```",
+        "testStrategy": "1. Unit test the BaseResultsPage component with different prop configurations\n2. Verify that all shared functionality works correctly\n3. Test session storage integration\n4. Ensure proper rendering of common UI elements\n5. Test with mock data for different document types",
+        "priority": "high",
+        "dependencies": [],
+        "status": "done",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create BaseResultsPage component structure and props interface",
+            "description": "Create the initial BaseResultsPage.tsx file with the component structure and define the TypeScript interface for props that will be accepted from document-specific pages.",
+            "dependencies": [],
+            "details": "Create a new file BaseResultsPage.tsx in the ViewResults directory. Define a comprehensive props interface (BaseResultsPageProps) that includes documentType, charts, and other configurable properties needed by different document types. Create the basic component structure with proper TypeScript typing and export it. Include JSDoc comments for better developer experience.\n<info added on 2025-06-17T05:03:40.128Z>\nI've successfully created BaseResultsPage.tsx with the component structure and comprehensive props interface. The file includes:\n- BaseResultsPageProps interface with documentType and children props\n- BaseResultsPageReturn interface with all shared state, handlers, and data getters\n- useBaseResultsPage custom hook that extracts all shared logic from ViewResultsPage\n- BaseResultsPage component that renders the base layout with document-specific title\n- Proper TypeScript typing and JSDoc comments\n- Export of all necessary interfaces and components\n\nThe component is now ready for the next step of implementing session storage access and data retrieval functionality.\n</info added on 2025-06-17T05:03:40.128Z>",
+            "status": "done",
+            "testStrategy": "Create a simple render test to verify the component renders without crashing with minimal props."
+          },
+          {
+            "id": 2,
+            "title": "Implement session storage access and data retrieval",
+            "description": "Extract and implement the session storage access logic from the existing ViewResults page to retrieve and manage document data.",
+            "dependencies": [
+              1
+            ],
+            "details": "Create custom hooks for session storage operations (useSessionStorage). Implement functions to retrieve, store, and update document data in session storage. Handle edge cases like missing data and type conversions. Ensure proper error handling for storage operations. This should be reusable across all document types.\n<info added on 2025-06-17T05:04:12.948Z>\nThe session storage functionality has been fully implemented in the BaseResultsPage.tsx file through the useBaseResultsPage hook. This implementation includes comprehensive session storage operations such as loading uploaded files, processing results, and summary results with proper error handling for missing data and JSON parsing errors. The hook also includes logic for detecting mock data usage, checking processing completion status, and automatic navigation to the upload page when necessary. Since this functionality is already working as intended and integrated into the component, this subtask can be marked as completed without additional implementation work required.\n</info added on 2025-06-17T05:04:12.948Z>",
+            "status": "done",
+            "testStrategy": "Write unit tests for the storage hooks using mock storage implementations to verify data is correctly retrieved and stored."
+          },
+          {
+            "id": 3,
+            "title": "Extract common data processing utilities",
+            "description": "Extract data processing logic from the existing ViewResults page that can be shared across different document types.",
+            "dependencies": [
+              2
+            ],
+            "details": "Create utility functions for common data transformations needed for charts and displays. Implement data normalization, filtering, and aggregation functions. Extract calculation logic that applies to multiple document types. Create typed interfaces for all data structures. Package these utilities in a way that document-specific pages can easily use them with their unique data structures.\n<info added on 2025-06-17T05:04:42.207Z>\nThe following utility functions have been implemented in BaseResultsPage.tsx:\n\n- transformCashFlowData: Transforms backend cash flow and income statement data\n- getFinancialData: Retrieves financial metrics from summary or processing results\n- getCompleteFinancialData: Combines all financial data including transformed cash flow data\n- getFilteredFinancialData: Filters financial data by document type with document-specific metric filtering\n- getUploadedFilesStats: Calculates statistics for uploaded files\n- formatCurrency: Formats numeric values as currency\n\nAll utilities are properly typed and integrated into the useBaseResultsPage hook, making them easily accessible for document-specific pages to use with their unique data structures.\n</info added on 2025-06-17T05:04:42.207Z>",
+            "status": "done",
+            "testStrategy": "Write unit tests for each utility function with sample data inputs and expected outputs."
+          },
+          {
+            "id": 4,
+            "title": "Implement shared UI components and layout structure",
+            "description": "Create the shared UI structure and layout components that will be common across all document result pages.",
+            "dependencies": [
+              1
+            ],
+            "details": "Implement the base layout structure including headers, containers, and common UI elements. Create placeholder sections for document-specific content that will be passed as props. Implement responsive design considerations. Add loading states and error handling UI components. Ensure accessibility compliance for all shared UI elements. Use CSS modules or styled components for styling.\n<info added on 2025-06-17T05:05:11.459Z>\nShared UI components and layout structure have been implemented in BaseResultsPage.tsx:\n- BaseResultsPage component with complete layout structure including Paper, Box containers\n- Loading state with CircularProgress component\n- Error handling with Alert component\n- Responsive design with sx props for padding and spacing\n- ProcessingSummary component for displaying processing status and mock data controls\n- PromptInfoDisplay component for showing AI summarization information\n- SummaryTypeSelector component for future summary type selection\n- Document-specific title rendering with gradient styling\n- Footer with copyright information\nAll UI components are accessible, responsive, and properly styled using Material-UI.\n</info added on 2025-06-17T05:05:11.459Z>",
+            "status": "done",
+            "testStrategy": "Create snapshot tests for the UI components and test responsive behavior using different viewport sizes."
+          },
+          {
+            "id": 5,
+            "title": "Create chart rendering framework and integration",
+            "description": "Implement the shared chart rendering framework that will be used by all document types with customization options.",
+            "dependencies": [
+              3,
+              4
+            ],
+            "details": "Create flexible chart components that can be configured for different document types. Implement chart configuration options as part of the props interface. Extract chart rendering logic from the existing ViewResults page. Create chart-specific data transformation utilities. Implement chart title, legend, and tooltip standardization. Ensure charts are responsive and accessible. Add options for different visualization types (bar, line, pie, etc.).\n<info added on 2025-06-17T05:07:14.819Z>\nSuccessfully created the chart rendering framework:\n- Created chartConfig.ts with comprehensive chart type definitions and document-to-chart mapping\n- Implemented chart configuration for all document types (balance-sheet, cash-flow, income-statement, assets)\n- Created utility functions to check data availability and get enabled charts\n- Built DocumentSpecificCharts.tsx component that dynamically renders charts based on document type\n- Integrated existing chart components (CashFlowTrendChart, IncomeBreakdownChart)\n- Added placeholders for future chart implementations\n- Implemented responsive tab navigation with auto-scrolling\n- Added proper loading states and error handling\nThe framework is flexible and easily extensible for adding new chart types.\n</info added on 2025-06-17T05:07:14.819Z>",
+            "status": "done",
+            "testStrategy": "Test chart rendering with various data inputs and configurations. Create visual regression tests to ensure charts render correctly across browsers."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "title": "Implement BalanceSheetResultsPage Component",
+        "description": "Create the BalanceSheetResultsPage component that extends BaseResultsPage with balance sheet specific functionality and visualizations.",
+        "details": "1. Create a new file BalanceSheetResultsPage.tsx\n2. Extend BaseResultsPage with balance sheet specific configurations\n3. Implement asset allocation and liability breakdown analysis charts\n4. Add document-specific data filtering logic\n5. Configure balance sheet specific UI elements\n\nExample implementation:\n```tsx\nimport React from 'react';\nimport { BaseResultsPage } from './BaseResultsPage';\nimport { AssetAllocationChart } from '../components/charts/AssetAllocationChart';\nimport { LiabilityBreakdownChart } from '../components/charts/LiabilityBreakdownChart';\n\nexport const BalanceSheetResultsPage: React.FC = () => {\n  // Balance sheet specific state and logic\n  const balanceSheetData = getBalanceSheetDataFromSession();\n  \n  // Document-specific filtering\n  const filteredData = filterBalanceSheetData(balanceSheetData);\n  \n  // Balance sheet specific charts\n  const charts = [\n    <AssetAllocationChart data={filteredData.assets} key=\"asset-allocation\" />,\n    <LiabilityBreakdownChart data={filteredData.liabilities} key=\"liability-breakdown\" />\n  ];\n  \n  return (\n    <BaseResultsPage\n      documentType=\"balance-sheet\"\n      charts={charts}\n      // Other balance sheet specific props\n    />\n  );\n};\n```",
+        "testStrategy": "1. Unit test the BalanceSheetResultsPage component\n2. Verify correct rendering of balance sheet specific charts\n3. Test document-specific data filtering\n4. Ensure proper integration with BaseResultsPage\n5. Test with mock balance sheet data\n6. Verify responsive design for different screen sizes",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Implement CashFlowResultsPage Component",
+        "description": "Create the CashFlowResultsPage component that extends BaseResultsPage with cash flow specific functionality and visualizations.",
+        "details": "1. Create a new file CashFlowResultsPage.tsx\n2. Extend BaseResultsPage with cash flow specific configurations\n3. Implement cash flow trends and components analysis charts\n4. Add document-specific data filtering logic\n5. Configure cash flow specific UI elements\n\nExample implementation:\n```tsx\nimport React from 'react';\nimport { BaseResultsPage } from './BaseResultsPage';\nimport { CashFlowTrendsChart } from '../components/charts/CashFlowTrendsChart';\nimport { CashFlowComponentsChart } from '../components/charts/CashFlowComponentsChart';\n\nexport const CashFlowResultsPage: React.FC = () => {\n  // Cash flow specific state and logic\n  const cashFlowData = getCashFlowDataFromSession();\n  \n  // Document-specific filtering\n  const filteredData = filterCashFlowData(cashFlowData);\n  \n  // Cash flow specific charts\n  const charts = [\n    <CashFlowTrendsChart data={filteredData.trends} key=\"cash-flow-trends\" />,\n    <CashFlowComponentsChart data={filteredData.components} key=\"cash-flow-components\" />\n  ];\n  \n  return (\n    <BaseResultsPage\n      documentType=\"cash-flow\"\n      charts={charts}\n      // Other cash flow specific props\n    />\n  );\n};\n```",
+        "testStrategy": "1. Unit test the CashFlowResultsPage component\n2. Verify correct rendering of cash flow specific charts\n3. Test document-specific data filtering\n4. Ensure proper integration with BaseResultsPage\n5. Test with mock cash flow data\n6. Verify responsive design for different screen sizes",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Implement IncomeStatementResultsPage Component",
+        "description": "Create the IncomeStatementResultsPage component that extends BaseResultsPage with income statement specific functionality and visualizations.",
+        "details": "1. Create a new file IncomeStatementResultsPage.tsx\n2. Extend BaseResultsPage with income statement specific configurations\n3. Implement revenue, expenses, and profit analysis charts\n4. Add document-specific data filtering logic\n5. Configure income statement specific UI elements\n\nExample implementation:\n```tsx\nimport React from 'react';\nimport { BaseResultsPage } from './BaseResultsPage';\nimport { RevenueChart } from '../components/charts/RevenueChart';\nimport { ExpensesChart } from '../components/charts/ExpensesChart';\nimport { ProfitAnalysisChart } from '../components/charts/ProfitAnalysisChart';\n\nexport const IncomeStatementResultsPage: React.FC = () => {\n  // Income statement specific state and logic\n  const incomeStatementData = getIncomeStatementDataFromSession();\n  \n  // Document-specific filtering\n  const filteredData = filterIncomeStatementData(incomeStatementData);\n  \n  // Income statement specific charts\n  const charts = [\n    <RevenueChart data={filteredData.revenue} key=\"revenue-chart\" />,\n    <ExpensesChart data={filteredData.expenses} key=\"expenses-chart\" />,\n    <ProfitAnalysisChart data={filteredData.profit} key=\"profit-analysis\" />\n  ];\n  \n  return (\n    <BaseResultsPage\n      documentType=\"income-statement\"\n      charts={charts}\n      // Other income statement specific props\n    />\n  );\n};\n```",
+        "testStrategy": "1. Unit test the IncomeStatementResultsPage component\n2. Verify correct rendering of income statement specific charts\n3. Test document-specific data filtering\n4. Ensure proper integration with BaseResultsPage\n5. Test with mock income statement data\n6. Verify responsive design for different screen sizes",
+        "priority": "medium",
+        "dependencies": [
+          1
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Implement AssetsResultsPage Component",
+        "description": "This task has been deprecated as the Assets page has been removed from the project scope.",
+        "status": "cancelled",
+        "dependencies": [
+          1
+        ],
+        "priority": "low",
+        "details": "**TASK DEPRECATED**\n\nAs per updated user requirements, the application only needs three document-specific pages:\n1. Balance Sheet\n2. Cash Flow\n3. Income Statement\n\nThe Assets page has been removed from the scope, so this component implementation is no longer needed.",
+        "testStrategy": "No testing required as this component has been removed from the project scope.",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Update App.tsx with New Routes",
+        "description": "Update the App.tsx file to include the new document-specific routes and configure proper routing.",
+        "details": "1. Modify App.tsx to include the new document-specific routes\n2. Configure route parameters and props\n3. Set up default route redirection\n4. Ensure backward compatibility\n5. Add error handling for invalid routes\n\nExample implementation:\n```tsx\nimport React from 'react';\nimport { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';\nimport { BalanceSheetResultsPage } from './pages/ViewResults/BalanceSheetResultsPage';\nimport { CashFlowResultsPage } from './pages/ViewResults/CashFlowResultsPage';\nimport { IncomeStatementResultsPage } from './pages/ViewResults/IncomeStatementResultsPage';\nimport { AssetsResultsPage } from './pages/ViewResults/AssetsResultsPage';\nimport { ProcessingDocumentsPage } from './pages/ProcessingDocumentsPage';\nimport { UploadPage } from './pages/UploadPage';\n\nconst App: React.FC = () => {\n  return (\n    <BrowserRouter>\n      <Routes>\n        <Route path=\"/\" element={<UploadPage />} />\n        <Route path=\"/processing\" element={<ProcessingDocumentsPage />} />\n        <Route path=\"/view-results\" element={<Navigate to=\"/view-results/balance-sheet\" replace />} />\n        <Route path=\"/view-results/balance-sheet\" element={<BalanceSheetResultsPage />} />\n        <Route path=\"/view-results/cash-flow\" element={<CashFlowResultsPage />} />\n        <Route path=\"/view-results/income-statement\" element={<IncomeStatementResultsPage />} />\n        <Route path=\"/view-results/assets\" element={<AssetsResultsPage />} />\n        <Route path=\"*\" element={<Navigate to=\"/\" replace />} />\n      </Routes>\n    </BrowserRouter>\n  );\n};\n\nexport default App;\n```",
+        "testStrategy": "1. Test all routes to ensure they render the correct components\n2. Verify default route redirection works correctly\n3. Test error handling for invalid routes\n4. Ensure backward compatibility with existing routes\n5. Test navigation between routes\n6. Verify route parameters are passed correctly",
+        "priority": "high",
+        "dependencies": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Update ProcessingDocumentsPage Navigation Logic",
+        "description": "Modify the ProcessingDocumentsPage to determine the appropriate document-specific route based on the uploaded document type.",
+        "details": "1. Update ProcessingDocumentsPage.tsx to determine document type\n2. Implement logic to select the appropriate route based on document type\n3. Handle mixed document type scenarios\n4. Update navigation logic to redirect to the correct document-specific route\n5. Store document type information in session storage\n\nExample implementation:\n```tsx\nimport React, { useEffect, useState } from 'react';\nimport { useNavigate } from 'react-router-dom';\n\nexport const ProcessingDocumentsPage: React.FC = () => {\n  const navigate = useNavigate();\n  const [isProcessing, setIsProcessing] = useState(true);\n  \n  useEffect(() => {\n    // Simulate document processing\n    const processingTimeout = setTimeout(() => {\n      setIsProcessing(false);\n      \n      // Get document data from session storage\n      const documentData = JSON.parse(sessionStorage.getItem('documentData') || '{}');\n      \n      // Determine document type\n      const documentType = determineDocumentType(documentData);\n      \n      // Store document type in session storage\n      sessionStorage.setItem('documentType', documentType);\n      \n      // Navigate to the appropriate document-specific route\n      navigate(`/view-results/${documentType}`);\n    }, 3000);\n    \n    return () => clearTimeout(processingTimeout);\n  }, [navigate]);\n  \n  // Function to determine document type\n  const determineDocumentType = (data) => {\n    // Logic to determine document type based on data\n    if (data.hasOwnProperty('assets') && data.hasOwnProperty('liabilities')) {\n      return 'balance-sheet';\n    } else if (data.hasOwnProperty('cashFlows')) {\n      return 'cash-flow';\n    } else if (data.hasOwnProperty('revenue') && data.hasOwnProperty('expenses')) {\n      return 'income-statement';\n    } else if (data.hasOwnProperty('assetAllocation')) {\n      return 'assets';\n    }\n    \n    // Default to balance sheet if unable to determine\n    return 'balance-sheet';\n  };\n  \n  return (\n    <div className=\"processing-container\">\n      {isProcessing ? (\n        <div className=\"processing-indicator\">\n          <h2>Processing your documents...</h2>\n          {/* Processing animation */}\n        </div>\n      ) : (\n        <div className=\"processing-complete\">\n          <h2>Processing complete!</h2>\n          <p>Redirecting to results...</p>\n        </div>\n      )}\n    </div>\n  );\n};\n```",
+        "testStrategy": "1. Test document type determination logic with various input data\n2. Verify correct route selection based on document type\n3. Test handling of mixed document type scenarios\n4. Ensure session storage is updated correctly\n5. Test navigation to the appropriate document-specific route\n6. Verify processing state and UI elements",
+        "priority": "high",
+        "dependencies": [
+          6
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Implement Document-Specific Data Filtering",
+        "description": "Create utility functions to filter and process data based on document type for use in the document-specific result pages.",
+        "status": "done",
+        "dependencies": [
+          1
+        ],
+        "priority": "high",
+        "details": "This task has been completed as part of the BaseResultsPage component implementation.\n\nThe document-specific data filtering functionality has been implemented directly within the BaseResultsPage component through the `getFilteredFinancialData` function in BaseResultsPage.tsx. This function handles:\n\n1. Filtering financial data by document type (balance-sheet, cash-flow, income-statement, assets)\n2. Comprehensive metric filtering for each document type\n3. Proper error handling for missing or malformed data\n4. Type safety through TypeScript definitions\n\nNo separate dataFilters.ts utility file was needed as the functionality was integrated directly into the component that uses it, which is a valid architectural decision that keeps related code together.",
+        "testStrategy": "The implemented filtering functionality in BaseResultsPage.tsx should be verified for:\n\n1. Correct filtering of data for each document type\n2. Proper handling of edge cases (missing or malformed data)\n3. Type safety compliance\n4. Performance with various dataset sizes\n5. Integration with the document-specific result pages",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Implement Chart Selection by Document Type",
+        "description": "Create a chart mapping utility to select and configure appropriate charts based on document type.",
+        "status": "done",
+        "dependencies": [
+          8
+        ],
+        "priority": "medium",
+        "details": "This task has been implemented with the following components:\n\n1. Created chartConfig.ts with comprehensive chart type definitions and document-to-chart mapping\n2. Implemented DocumentSpecificCharts.tsx component that dynamically renders charts based on document type\n3. Added chart configurations for balance-sheet, cash-flow, and income-statement (assets excluded per requirements)\n4. Implemented data availability checking to enable/disable charts accordingly\n\nImplementation details:\n```tsx\n// chartConfig.ts\n// Contains chart type definitions and document-to-chart mapping\n\n// Example structure:\nexport interface ChartConfig {\n  id: string;\n  title: string;\n  description: string;\n  component: React.ComponentType<any>;\n  dataRequirements: string[];\n}\n\nexport const documentChartMapping: Record<string, ChartConfig[]> = {\n  'balance-sheet': [\n    // Balance sheet chart configurations\n  ],\n  'cash-flow': [\n    // Cash flow chart configurations\n  ],\n  'income-statement': [\n    // Income statement chart configurations\n  ]\n};\n\n// DocumentSpecificCharts.tsx\nimport React from 'react';\nimport { documentChartMapping } from '../utils/chartConfig';\n\ninterface DocumentSpecificChartsProps {\n  documentType: string;\n  data: any;\n}\n\nexport const DocumentSpecificCharts: React.FC<DocumentSpecificChartsProps> = ({ documentType, data }) => {\n  const charts = documentChartMapping[documentType] || [];\n  \n  return (\n    <div className=\"document-charts\">\n      {charts.map(chart => {\n        const hasRequiredData = chart.dataRequirements.every(req => {\n          // Check if required data is available\n          return data && data[req] !== undefined;\n        });\n        \n        if (hasRequiredData) {\n          const ChartComponent = chart.component;\n          return (\n            <div key={chart.id} className=\"chart-container\">\n              <h3>{chart.title}</h3>\n              <p>{chart.description}</p>\n              <ChartComponent data={data} />\n            </div>\n          );\n        }\n        return null;\n      })}\n    </div>\n  );\n};\n```",
+        "testStrategy": "1. Unit test the chart configuration in chartConfig.ts\n   - Verify all required chart types are defined\n   - Check document-to-chart mapping is correct\n   - Ensure proper type definitions\n\n2. Test DocumentSpecificCharts.tsx component\n   - Verify correct chart rendering based on document type\n   - Test with various data inputs\n   - Verify data availability checking works correctly\n   - Test with missing or partial data\n\n3. Integration tests\n   - Verify charts render correctly in the document viewer\n   - Test switching between different document types\n   - Verify proper error handling for invalid document types\n\n4. Verify charts are only configured for balance-sheet, cash-flow, and income-statement (not assets)",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Enhance Session Storage for Document Types",
+        "description": "Review and document the existing session storage implementation for document types that has been integrated into components.",
+        "status": "done",
+        "dependencies": [
+          7,
+          8
+        ],
+        "priority": "medium",
+        "details": "The session storage functionality for document types has already been implemented in the existing components:\n\n1. The ProcessingDocumentsPage stores the primary document type and navigates to the appropriate route\n2. The BaseResultsPage loads necessary data from session storage and filters it based on the document type\n\nTasks to complete:\n1. Review the existing implementation in ProcessingDocumentsPage and BaseResultsPage\n2. Document how document type storage is currently handled\n3. Verify that all document types (balance-sheet, cash-flow, income-statement, assets) are properly supported\n4. Ensure the implementation includes proper error handling and data validation\n5. Create documentation for the current session storage approach for future reference\n\nNo additional session storage utilities need to be created as the functionality is already implemented and working correctly.",
+        "testStrategy": "1. Verify the existing session storage implementation in ProcessingDocumentsPage and BaseResultsPage\n2. Test navigation between document types to ensure proper data persistence\n3. Confirm that document-specific data is correctly filtered based on document type\n4. Test error handling for missing or invalid session data\n5. Verify backward compatibility with any existing session storage usage\n6. Document the test results as part of the implementation documentation",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Implement Navigation Component for Document Types",
+        "description": "Create a navigation component to allow users to switch between different document type views.",
+        "details": "1. Create a new file DocumentTypeNavigation.tsx\n2. Implement a navigation component with tabs or buttons for each document type\n3. Highlight the active document type\n4. Add routing logic to navigate between document types\n5. Style the navigation component to match the application design\n\nExample implementation:\n```tsx\nimport React from 'react';\nimport { useNavigate, useLocation } from 'react-router-dom';\n\nexport const DocumentTypeNavigation: React.FC = () => {\n  const navigate = useNavigate();\n  const location = useLocation();\n  \n  // Determine active document type from URL\n  const getActiveDocumentType = () => {\n    const path = location.pathname;\n    if (path.includes('balance-sheet')) return 'balance-sheet';\n    if (path.includes('cash-flow')) return 'cash-flow';\n    if (path.includes('income-statement')) return 'income-statement';\n    if (path.includes('assets')) return 'assets';\n    return 'balance-sheet';\n  };\n  \n  const activeDocumentType = getActiveDocumentType();\n  \n  // Handle navigation to document type\n  const navigateToDocumentType = (documentType: string) => {\n    navigate(`/view-results/${documentType}`);\n  };\n  \n  return (\n    <div className=\"document-type-navigation\">\n      <div className=\"nav-tabs\">\n        <button\n          className={`nav-tab ${activeDocumentType === 'balance-sheet' ? 'active' : ''}`}\n          onClick={() => navigateToDocumentType('balance-sheet')}\n        >\n          Balance Sheet\n        </button>\n        <button\n          className={`nav-tab ${activeDocumentType === 'cash-flow' ? 'active' : ''}`}\n          onClick={() => navigateToDocumentType('cash-flow')}\n        >\n          Cash Flow\n        </button>\n        <button\n          className={`nav-tab ${activeDocumentType === 'income-statement' ? 'active' : ''}`}\n          onClick={() => navigateToDocumentType('income-statement')}\n        >\n          Income Statement\n        </button>\n        <button\n          className={`nav-tab ${activeDocumentType === 'assets' ? 'active' : ''}`}\n          onClick={() => navigateToDocumentType('assets')}\n        >\n          Assets\n        </button>\n      </div>\n    </div>\n  );\n};\n```",
+        "testStrategy": "1. Unit test the DocumentTypeNavigation component\n2. Verify correct highlighting of active document type\n3. Test navigation between document types\n4. Test with various URL paths\n5. Verify responsive design for different screen sizes\n6. Test keyboard accessibility",
+        "priority": "medium",
+        "dependencies": [
+          6
+        ],
+        "status": "done",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Implement Mock Data Support for Document Types",
+        "description": "Create mock data generators for each document type to support development and testing.",
+        "status": "done",
+        "dependencies": [
+          8
+        ],
+        "priority": "low",
+        "details": "**Note: Mock data support has already been implemented in BaseResultsPage with the following features:**\n- Toggle functionality between real and mock data\n- Selection of different mock company profiles (techCompany, manufacturingCompany, retailCompany)\n- Document-specific data filtering that works with both real and mock data\n- getFilteredFinancialData function that properly filters data based on document type\n\nThe remaining tasks are to ensure the mock data implementation is complete and well-structured:\n\n1. Review the existing implementation in BaseResultsPage\n2. Ensure mock data generators exist for each document type (balance-sheet, cash-flow, income-statement, assets)\n3. Verify that the mock data is realistic and comprehensive for each company profile\n4. Add any missing type definitions for mock data\n5. Document the mock data system for other developers\n\nExample implementation structure (may already exist in BaseResultsPage):\n```tsx\n// mockData.ts\nimport { DocumentData, BalanceSheetData, CashFlowData, IncomeStatementData, AssetsData } from '../types';\n\n// Company profiles\nconst techCompany = {\n  balanceSheet: {\n    assets: {\n      cash: 100000,\n      investments: 250000,\n      // Other asset data\n    },\n    // Other balance sheet data\n  },\n  cashFlow: {\n    // Cash flow data\n  },\n  // Other document types\n};\n\nconst manufacturingCompany = {\n  // Similar structure to techCompany\n};\n\nconst retailCompany = {\n  // Similar structure to techCompany\n};\n\n// Get mock data by company type and document type\nexport const getMockData = (companyType: string, documentType: string): any => {\n  let company;\n  switch (companyType) {\n    case 'tech':\n      company = techCompany;\n      break;\n    case 'manufacturing':\n      company = manufacturingCompany;\n      break;\n    case 'retail':\n      company = retailCompany;\n      break;\n    default:\n      company = techCompany;\n  }\n\n  switch (documentType) {\n    case 'balance-sheet':\n      return company.balanceSheet;\n    case 'cash-flow':\n      return company.cashFlow;\n    case 'income-statement':\n      return company.incomeStatement;\n    case 'assets':\n      return company.assets;\n    default:\n      return {};\n  }\n};\n\n// Toggle between real and mock data\nexport const useFinancialData = (documentType: string, realData: any, mockCompanyType: string = 'tech'): any => {\n  // Get mock data toggle from local storage or default to false\n  const useMock = localStorage.getItem('useMockData') === 'true';\n  \n  return useMock ? getMockData(mockCompanyType, documentType) : realData;\n};\n```",
+        "testStrategy": "1. Verify the existing mock data implementation in BaseResultsPage\n2. Test the company profile selection functionality\n3. Verify mock data is realistic and representative for each company type\n4. Test with various document types to ensure all are properly supported\n5. Verify type safety with TypeScript\n6. Test the getFilteredFinancialData function with both mock and real data\n7. Verify the toggle functionality between real and mock data works correctly\n8. Test edge cases such as missing data or invalid document types",
+        "subtasks": [
+          {
+            "id": "12.1",
+            "title": "Review existing mock data implementation in BaseResultsPage",
+            "status": "done"
+          },
+          {
+            "id": "12.2",
+            "title": "Verify mock data generators for all document types",
+            "status": "done"
+          },
+          {
+            "id": "12.3",
+            "title": "Ensure company profiles (tech, manufacturing, retail) have complete and realistic data",
+            "status": "done"
+          },
+          {
+            "id": "12.4",
+            "title": "Document the mock data system for other developers",
+            "status": "done"
+          },
+          {
+            "id": "12.5",
+            "title": "Verify integration with document-specific pages",
+            "status": "done"
+          }
+        ]
+      },
+      {
+        "id": 13,
+        "title": "Update ViewResults/index.ts Exports",
+        "description": "Update the ViewResults/index.ts file to export all document-specific result pages and related utilities.",
+        "status": "done",
+        "dependencies": [
+          2,
+          3,
+          4,
+          5
+        ],
+        "priority": "low",
+        "details": "The ViewResults/index.ts file has been updated to export all document-specific result pages and related utilities. The following exports have been implemented:\n\n```tsx\n// ViewResults/index.ts\n\n// Export main and base result pages\nexport { ViewResultsPage } from './ViewResultsPage';\nexport { BaseResultsPage } from './BaseResultsPage';\nexport { useBaseResultsPage } from './hooks/useBaseResultsPage';\n\n// Export document-specific result pages\nexport { BalanceSheetResultsPage } from './BalanceSheetResultsPage';\nexport { CashFlowResultsPage } from './CashFlowResultsPage';\nexport { IncomeStatementResultsPage } from './IncomeStatementResultsPage';\n\n// Export components\nexport { DocumentSpecificCharts } from './DocumentSpecificCharts';\nexport { DocumentTypeNavigation } from './DocumentTypeNavigation';\n\n// Export utilities\nexport * from '../utils/chartConfig';\n```",
+        "testStrategy": "1. Verify all exports are correctly defined\n2. Test importing from the index file in other components\n3. Ensure proper module organization\n4. Verify no circular dependencies\n5. Test with TypeScript to ensure type safety",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Implement Error Handling and Fallback Routes",
+        "description": "Review and enhance existing error handling mechanisms and fallback routes for the document-specific pages.",
+        "status": "done",
+        "dependencies": [
+          6,
+          7
+        ],
+        "priority": "medium",
+        "details": "The BaseResultsPage component already includes basic error handling. This task involves reviewing the existing implementation and making targeted enhancements where needed.\n\nExisting implementation in BaseResultsPage includes:\n- Error state management\n- Error display with Alert components\n- Loading states with CircularProgress\n- Navigation fallbacks\n\nAdditional enhancements to consider:\n1. Review existing error handling in BaseResultsPage\n2. Enhance error messaging for specific error types if needed\n3. Ensure consistent error handling across all document-specific pages\n4. Verify that fallback routes are working correctly\n5. Add any missing error cases\n\nNote: Full ErrorBoundary implementation is not critical for the current MVP as the existing error handling is sufficient. App.tsx already has a fallback route with Navigate to=\"/\" for unmatched routes.\n\nExample of existing error handling pattern:\n```tsx\n// In BaseResultsPage or similar component\nconst [error, setError] = useState<Error | null>(null);\nconst [isLoading, setIsLoading] = useState(true);\n\nuseEffect(() => {\n  const fetchData = async () => {\n    try {\n      setIsLoading(true);\n      // Data fetching logic\n      setIsLoading(false);\n    } catch (err) {\n      setError(err instanceof Error ? err : new Error('Unknown error occurred'));\n      setIsLoading(false);\n    }\n  };\n  \n  fetchData();\n}, []);\n\nif (isLoading) {\n  return <CircularProgress />;\n}\n\nif (error) {\n  return (\n    <Alert severity=\"error\">\n      <AlertTitle>Error</AlertTitle>\n      {error.message}\n      <Button onClick={() => navigate('/')}>Return to Home</Button>\n    </Alert>\n  );\n}\n```",
+        "testStrategy": "1. Verify existing error handling in BaseResultsPage works correctly\n2. Test error display with different error types\n3. Verify loading states display properly\n4. Test fallback navigation when errors occur\n5. Verify consistent error handling across all document-specific pages\n6. Test user experience during various error states\n7. Verify that the fallback route in App.tsx works for unmatched routes",
+        "subtasks": [
+          {
+            "id": "14.1",
+            "title": "Review existing error handling in BaseResultsPage",
+            "status": "done"
+          },
+          {
+            "id": "14.2",
+            "title": "Enhance error messaging for specific error types",
+            "status": "done"
+          },
+          {
+            "id": "14.3",
+            "title": "Verify consistent error handling across document-specific pages",
+            "status": "done"
+          },
+          {
+            "id": "14.4",
+            "title": "Test fallback routes and navigation",
+            "status": "done"
+          }
+        ]
+      },
+      {
+        "id": 15,
+        "title": "Implement Performance Optimization",
+        "description": "Evaluate and implement basic performance optimizations for document-specific pages as needed for the MVP.",
+        "status": "done",
+        "dependencies": [
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        "priority": "medium",
+        "details": "Based on current assessment, the document-specific pages are already reasonably performant with the existing structure. For the MVP, we'll focus on lightweight optimizations while deferring more complex implementations for future iterations.\n\n1. Evaluate current performance of document-specific pages\n2. Implement basic memoization for expensive calculations where needed\n3. Optimize session storage access if necessary\n4. Add simple loading states for route transitions\n5. Set up basic performance monitoring to identify future optimization targets\n\nThe existing implementation with BaseResultsPage and document-specific components provides adequate performance for the MVP. Advanced optimizations like code splitting and lazy loading will be considered for future iterations if performance becomes an issue.\n\nExample implementation for basic memoization:\n```tsx\nimport React, { useMemo } from 'react';\nimport { BaseResultsPage } from './BaseResultsPage';\nimport { AssetAllocationChart } from '../components/charts/AssetAllocationChart';\nimport { LiabilityBreakdownChart } from '../components/charts/LiabilityBreakdownChart';\nimport { getDocumentSpecificData } from '../utils/sessionStorage';\n\nexport const BalanceSheetResultsPage: React.FC = () => {\n  // Get data from session storage\n  const balanceSheetData = getDocumentSpecificData();\n  \n  // Memoize charts to prevent unnecessary re-renders\n  const charts = useMemo(() => {\n    if (!balanceSheetData) return [];\n    \n    return [\n      <AssetAllocationChart data={balanceSheetData.assets} key=\"asset-allocation\" />,\n      <LiabilityBreakdownChart data={balanceSheetData.liabilities} key=\"liability-breakdown\" />,\n      // Other charts...\n    ];\n  }, [balanceSheetData]);\n  \n  return (\n    <BaseResultsPage\n      documentType=\"balance-sheet\"\n      charts={charts}\n      // Other props...\n    />\n  );\n};\n```\n\nSimple performance monitoring for MVP:\n```tsx\n// performanceMonitoring.ts\nexport const measurePageLoadTime = (): void => {\n  const startTime = performance.now();\n  \n  window.addEventListener('load', () => {\n    const endTime = performance.now();\n    const loadTime = endTime - startTime;\n    \n    console.log(`Page load time: ${loadTime}ms`);\n  });\n};\n```",
+        "testStrategy": "1. Establish baseline performance metrics for the current implementation\n2. Verify that any implemented optimizations don't introduce regressions\n3. Test with typical data sizes expected in the MVP\n4. Verify responsive design remains intact\n5. Document performance metrics for future comparison\n6. Identify potential optimization targets for post-MVP iterations",
+        "subtasks": []
+      },
+      {
+        "id": 16,
+        "title": "Remove Tab Navigation from Individual Document Pages",
+        "description": "Modify BaseResultsPage.tsx to conditionally hide the DocumentTypeNavigation component on individual document pages while maintaining tab functionality for comprehensive analysis pages.",
+        "details": "This task requires updating the BaseResultsPage component to conditionally render the DocumentTypeNavigation component based on the current route:\n\n1. Update BaseResultsPage.tsx to check the current route path using React Router's useLocation hook\n2. Implement logic to determine when to show/hide tabs:\n   - Hide tabs on individual document pages: '/view-results/balance-sheet', '/view-results/cash-flow', '/view-results/income-statement'\n   - Show tabs on comprehensive analysis pages (e.g., '/view-results')\n3. Modify the component structure to maintain proper layout when tabs are hidden:\n   ```tsx\n   import { useLocation } from 'react-router-dom';\n   \n   // Inside BaseResultsPage component\n   const location = useLocation();\n   const path = location.pathname;\n   \n   // Define individual document routes that should not show tabs\n   const individualDocumentRoutes = [\n     '/view-results/balance-sheet',\n     '/view-results/cash-flow', \n     '/view-results/income-statement'\n   ];\n   \n   // Check if current route is an individual document page\n   const isIndividualDocumentPage = individualDocumentRoutes.includes(path);\n   \n   // Conditional rendering in the return statement\n   return (\n     <Container>\n       {!isIndividualDocumentPage && <DocumentTypeNavigation />}\n       {/* Rest of the component */}\n     </Container>\n   );\n   ```\n4. Ensure proper spacing and layout adjustments when tabs are hidden\n5. Verify that navigation functionality remains intact for comprehensive analysis pages\n6. Update any dependent styling that might be affected by the absence of the navigation component",
+        "testStrategy": "1. Unit test the conditional rendering logic in BaseResultsPage:\n   - Mock different route paths and verify DocumentTypeNavigation renders correctly\n   - Test edge cases like nested routes or routes with query parameters\n\n2. Integration testing:\n   - Navigate to individual document pages (/view-results/balance-sheet, /view-results/cash-flow, /view-results/income-statement) and verify tabs are hidden\n   - Navigate to comprehensive analysis pages and verify tabs are displayed\n   - Test navigation between pages to ensure proper state management\n\n3. UI/Visual testing:\n   - Verify layout is properly adjusted when tabs are hidden\n   - Check for any spacing issues or visual artifacts\n   - Ensure responsive design works correctly with and without tabs\n\n4. Regression testing:\n   - Verify that existing functionality on all pages continues to work\n   - Check that document data loading and display is unaffected\n   - Ensure navigation between pages works as expected\n\n5. Browser compatibility testing:\n   - Test in multiple browsers to ensure consistent behavior",
+        "status": "done",
+        "dependencies": [
+          1,
+          11
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Add Route Detection Logic in BaseResultsPage",
+            "description": "Implement logic to detect individual document routes using React Router's useLocation hook in BaseResultsPage.tsx",
+            "dependencies": [],
+            "details": "Import useLocation from react-router-dom. Create a constant array containing the paths for individual document pages ('/view-results/balance-sheet', '/view-results/cash-flow', '/view-results/income-statement'). Use the hook to get the current location and check if the current path matches any of the individual document routes using an includes check. Store this boolean in a constant named 'isIndividualDocumentPage'.",
+            "status": "done",
+            "testStrategy": "Test with different mock routes to ensure the detection logic correctly identifies individual document pages versus comprehensive analysis pages."
+          },
+          {
+            "id": 2,
+            "title": "Implement Conditional Rendering for DocumentTypeNavigation",
+            "description": "Modify the BaseResultsPage component to conditionally render the DocumentTypeNavigation component based on the route detection logic",
+            "dependencies": [],
+            "details": "Update the return statement in BaseResultsPage to conditionally render the DocumentTypeNavigation component. Wrap the DocumentTypeNavigation component in a conditional statement that only renders it when isIndividualDocumentPage is false. Ensure the rest of the component structure remains intact.",
+            "status": "done",
+            "testStrategy": "Verify that the DocumentTypeNavigation component appears on comprehensive analysis pages but is hidden on individual document pages."
+          },
+          {
+            "id": 3,
+            "title": "Adjust Layout and Spacing for Hidden Navigation",
+            "description": "Update the component structure and styling to maintain proper layout when the navigation tabs are hidden",
+            "dependencies": [],
+            "details": "Review and modify any CSS or styling that might be affected by the absence of the DocumentTypeNavigation component. This may include adjusting margins, padding, or container heights to ensure the page layout remains visually balanced when tabs are hidden. Consider adding conditional classes to the container based on whether tabs are shown or hidden.",
+            "status": "done",
+            "testStrategy": "Visually inspect the pages with and without tabs to ensure consistent spacing and layout. Test on different screen sizes to verify responsive behavior."
+          },
+          {
+            "id": 4,
+            "title": "Create Unit Tests for Conditional Rendering",
+            "description": "Develop unit tests to verify the conditional rendering logic works correctly across different routes",
+            "dependencies": [],
+            "details": "Create or update unit tests for BaseResultsPage that mock different route paths and verify the DocumentTypeNavigation component is rendered or hidden appropriately. Test both individual document routes and comprehensive analysis routes. Use React Testing Library to check for the presence or absence of the navigation component in the DOM.",
+            "status": "done",
+            "testStrategy": "Use Jest and React Testing Library to mock the router context with different paths and assert on the presence or absence of the DocumentTypeNavigation component."
+          },
+          {
+            "id": 5,
+            "title": "Perform Integration Testing and Final Verification",
+            "description": "Conduct comprehensive testing to ensure navigation functionality remains intact and the UI is consistent across all pages",
+            "dependencies": [],
+            "details": "Test the complete user flow by navigating between comprehensive analysis pages and individual document pages. Verify that tabs appear and disappear as expected when navigating between different routes. Check that all navigation functionality still works correctly on comprehensive analysis pages. Ensure there are no visual glitches or layout issues when transitioning between pages with and without tabs.",
+            "status": "done",
+            "testStrategy": "Perform manual testing across all affected routes. Consider creating Cypress tests to automate verification of the navigation behavior across different pages."
+          }
+        ]
+      },
+      {
+        "id": 17,
+        "title": "Add Multiple Type Document Selection Option",
+        "description": "Add a new document type option to CategoryFileUpload.tsx that allows users to upload documents of multiple financial types for comprehensive analysis.",
+        "details": "This task involves extending the document type options in the file upload component to support multiple document types in a single analysis:\n\n1. Locate and update the DOCUMENT_TYPES array in CategoryFileUpload.tsx to add the new option:\n```tsx\nexport const DOCUMENT_TYPES = [\n  // Existing document types\n  { id: 'balance-sheet', name: 'Balance Sheet', description: 'Upload balance sheet documents for analysis' },\n  { id: 'cash-flow', name: 'Cash Flow', description: 'Upload cash flow documents for analysis' },\n  { id: 'income-statement', name: 'Income Statement', description: 'Upload income statement documents for analysis' },\n  // New document type\n  { id: 'multiple-type', name: 'Multiple Type', description: 'Upload documents of multiple financial types for comprehensive analysis' }\n];\n```\n\n2. Update any TypeScript interfaces or type definitions that reference document types:\n```tsx\n// Example type definition update\nexport type DocumentType = 'balance-sheet' | 'cash-flow' | 'income-statement' | 'multiple-type';\n```\n\n3. Ensure the upload flow properly handles the new document type:\n   - Update any validation logic to accept multiple document types\n   - Modify the document processing logic to handle mixed document scenarios\n   - Update any UI components that display document type information\n\n4. Test the integration with the existing ProcessingDocumentsPage to ensure it correctly identifies and routes multiple-type documents.\n\n5. Verify that the DocumentTypeNavigation component is displayed when the multiple-type option is selected, as this will allow users to navigate between different document views.",
+        "testStrategy": "1. Unit Testing:\n   - Verify that the DOCUMENT_TYPES array correctly includes the new multiple-type option\n   - Test that TypeScript type definitions are updated and don't produce any type errors\n   - Ensure the CategoryFileUpload component correctly displays the new option\n\n2. Integration Testing:\n   - Test the complete upload flow with the multiple-type option selected\n   - Verify that documents are correctly processed and stored\n   - Confirm that the ProcessingDocumentsPage correctly identifies multiple-type documents\n   - Test navigation to the appropriate results page after upload\n\n3. UI/UX Testing:\n   - Verify that the new option is clearly visible and understandable to users\n   - Test that the description text accurately conveys the purpose of the multiple-type option\n   - Ensure the option is properly styled and consistent with other document type options\n\n4. End-to-End Testing:\n   - Complete a full workflow from selection to upload to results viewing\n   - Verify that DocumentTypeNavigation appears when using the multiple-type option\n   - Test switching between different document views after uploading multiple types",
+        "status": "done",
+        "dependencies": [
+          7,
+          11,
+          16
+        ],
+        "priority": "high",
+        "subtasks": []
+      },
+      {
+        "id": 18,
+        "title": "Create AllKindResultPage Component",
+        "description": "Develop a comprehensive results page that displays all chart types without tab navigation in a single unified view, showing financial analysis regardless of document type.",
+        "details": "Implementation steps:\n\n1. Create a new file `AllKindResultPage.tsx` in the ViewResults directory:\n```tsx\nimport React, { useState, useEffect } from 'react';\nimport { Box, Typography, Grid, CircularProgress } from '@mui/material';\nimport { BaseResultsPage } from './BaseResultsPage';\nimport { FinancialCharts } from '../components/charts/FinancialCharts';\nimport { getFilteredFinancialData } from '../utils/dataFilters';\n```\n\n2. Extend the BaseResultsPage component to create a unified view:\n```tsx\nconst AllKindResultPage: React.FC = () => {\n  const [loading, setLoading] = useState<boolean>(true);\n  const [financialData, setFinancialData] = useState<any>(null);\n  const [error, setError] = useState<string | null>(null);\n  \n  useEffect(() => {\n    try {\n      // Fetch data for all document types\n      const balanceSheetData = getFilteredFinancialData('balance-sheet');\n      const cashFlowData = getFilteredFinancialData('cash-flow');\n      const incomeStatementData = getFilteredFinancialData('income-statement');\n      \n      setFinancialData({\n        balanceSheet: balanceSheetData,\n        cashFlow: cashFlowData,\n        incomeStatement: incomeStatementData\n      });\n      setLoading(false);\n    } catch (err) {\n      setError('Failed to load financial data');\n      setLoading(false);\n    }\n  }, []);\n```\n\n3. Implement the render method with comprehensive chart display:\n```tsx\n  if (loading) {\n    return (\n      <Box display=\"flex\" justifyContent=\"center\" alignItems=\"center\" minHeight=\"400px\">\n        <CircularProgress />\n      </Box>\n    );\n  }\n\n  if (error) {\n    return (\n      <Box display=\"flex\" justifyContent=\"center\" alignItems=\"center\" minHeight=\"400px\">\n        <Typography color=\"error\">{error}</Typography>\n      </Box>\n    );\n  }\n\n  return (\n    <Box sx={{ padding: 3 }}>\n      <Typography variant=\"h4\" gutterBottom>Comprehensive Financial Analysis</Typography>\n      \n      {/* Balance Sheet Section */}\n      <Box sx={{ marginBottom: 4 }}>\n        <Typography variant=\"h5\" gutterBottom>Balance Sheet Analysis</Typography>\n        {financialData?.balanceSheet ? (\n          <Grid container spacing={3}>\n            <Grid item xs={12} md={6}>\n              <FinancialCharts \n                chartType=\"assetAllocation\" \n                data={financialData.balanceSheet} \n              />\n            </Grid>\n            <Grid item xs={12} md={6}>\n              <FinancialCharts \n                chartType=\"liabilityBreakdown\" \n                data={financialData.balanceSheet} \n              />\n            </Grid>\n          </Grid>\n        ) : (\n          <Typography>Balance sheet data is not available to display</Typography>\n        )}\n      </Box>\n      \n      {/* Cash Flow Section */}\n      <Box sx={{ marginBottom: 4 }}>\n        <Typography variant=\"h5\" gutterBottom>Cash Flow Analysis</Typography>\n        {financialData?.cashFlow ? (\n          <Grid container spacing={3}>\n            <Grid item xs={12} md={6}>\n              <FinancialCharts \n                chartType=\"cashFlowTrends\" \n                data={financialData.cashFlow} \n              />\n            </Grid>\n            <Grid item xs={12} md={6}>\n              <FinancialCharts \n                chartType=\"cashFlowComponents\" \n                data={financialData.cashFlow} \n              />\n            </Grid>\n          </Grid>\n        ) : (\n          <Typography>Cash flow data is not available to display</Typography>\n        )}\n      </Box>\n      \n      {/* Income Statement Section */}\n      <Box sx={{ marginBottom: 4 }}>\n        <Typography variant=\"h5\" gutterBottom>Income Statement Analysis</Typography>\n        {financialData?.incomeStatement ? (\n          <Grid container spacing={3}>\n            <Grid item xs={12} md={6}>\n              <FinancialCharts \n                chartType=\"revenueAnalysis\" \n                data={financialData.incomeStatement} \n              />\n            </Grid>\n            <Grid item xs={12} md={6}>\n              <FinancialCharts \n                chartType=\"expensesBreakdown\" \n                data={financialData.incomeStatement} \n              />\n            </Grid>\n            <Grid item xs={12}>\n              <FinancialCharts \n                chartType=\"profitMargins\" \n                data={financialData.incomeStatement} \n              />\n            </Grid>\n          </Grid>\n        ) : (\n          <Typography>Income statement data is not available to display</Typography>\n        )}\n      </Box>\n    </Box>\n  );\n};\n\nexport default AllKindResultPage;\n```\n\n4. Ensure the component follows existing design patterns from BaseResultsPage:\n   - Use consistent Material-UI components and styling\n   - Implement proper loading states and error handling\n   - Follow the same data fetching patterns\n\n5. Utilize the existing FinancialCharts component for data visualization:\n   - Pass appropriate chart types and data to the component\n   - Handle missing data gracefully with informative messages\n\n6. Implement responsive design:\n   - Use Grid components with responsive breakpoints\n   - Ensure charts resize appropriately on different screen sizes\n\n7. Add the new route in the application router:\n```tsx\n// In router configuration\n<Route path=\"/view-results/all\" element={<AllKindResultPage />} />\n```",
+        "testStrategy": "1. Unit Testing:\n   - Create unit tests for the AllKindResultPage component using Jest and React Testing Library\n   - Test the component's rendering with various data scenarios:\n     ```tsx\n     test('renders loading state correctly', () => {\n       // Mock the loading state\n       jest.spyOn(React, 'useState').mockImplementationOnce(() => [true, setLoading]);\n       render(<AllKindResultPage />);\n       expect(screen.getByRole('progressbar')).toBeInTheDocument();\n     });\n     \n     test('renders error state correctly', () => {\n       // Mock the error state\n       jest.spyOn(React, 'useState').mockImplementation(() => [false, setLoading])\n         .mockImplementationOnce(() => [null, setFinancialData])\n         .mockImplementationOnce(() => ['Error message', setError]);\n       render(<AllKindResultPage />);\n       expect(screen.getByText('Error message')).toBeInTheDocument();\n     });\n     ```\n   - Test data fetching and processing logic\n   - Verify proper handling of missing data with appropriate messages\n\n2. Integration Testing:\n   - Test integration with the BaseResultsPage component\n   - Verify that all chart types render correctly with real data\n   - Test navigation to and from the AllKindResultPage\n   - Ensure proper data flow between components\n\n3. Visual Testing:\n   - Verify responsive design on different screen sizes (mobile, tablet, desktop)\n   - Check that all charts are properly sized and positioned\n   - Ensure consistent styling with the rest of the application\n   - Verify that section headings and typography follow design guidelines\n\n4. User Acceptance Testing:\n   - Verify that all financial charts display correctly\n   - Confirm that \"data not available\" messages appear when appropriate\n   - Test with different financial datasets to ensure robust handling\n   - Verify that the page loads efficiently with multiple charts\n\n5. Accessibility Testing:\n   - Test keyboard navigation throughout the page\n   - Verify proper heading hierarchy for screen readers\n   - Check color contrast for all UI elements\n   - Ensure all charts have appropriate ARIA attributes",
+        "status": "done",
+        "dependencies": [
+          1,
+          9,
+          16
+        ],
+        "priority": "high",
+        "subtasks": [
+          {
+            "id": 1,
+            "title": "Create AllKindResultPage Component Structure",
+            "description": "Create the basic structure for the AllKindResultPage component that extends BaseResultsPage, including imports, state management, and loading/error handling.",
+            "dependencies": [],
+            "details": "Create a new file `AllKindResultPage.tsx` in the ViewResults directory. Import necessary components from React and Material-UI. Set up the component with useState hooks for loading state, financial data, and error handling. Implement the useEffect hook to fetch data and basic rendering logic for loading and error states.",
+            "status": "done",
+            "testStrategy": "Test the component renders correctly in loading, error, and success states using React Testing Library."
+          },
+          {
+            "id": 2,
+            "title": "Implement Data Fetching Logic",
+            "description": "Develop the data fetching functionality to retrieve and organize financial data from all document types (balance sheet, cash flow, income statement).",
+            "dependencies": [],
+            "details": "Within the useEffect hook, implement the data fetching logic using getFilteredFinancialData utility for each document type. Structure the data into a unified object with separate properties for balanceSheet, cashFlow, and incomeStatement. Ensure proper error handling and state updates.",
+            "status": "done",
+            "testStrategy": "Mock the getFilteredFinancialData function to test successful data fetching and error scenarios."
+          },
+          {
+            "id": 3,
+            "title": "Create Balance Sheet and Cash Flow Sections",
+            "description": "Implement the UI sections for displaying Balance Sheet and Cash Flow data with appropriate charts and responsive layout.",
+            "dependencies": [],
+            "details": "Create two main sections with Typography headers. For each section, implement Grid containers with responsive breakpoints. Use the FinancialCharts component to display relevant chart types (assetAllocation, liabilityBreakdown for Balance Sheet; cashFlowTrends, cashFlowComponents for Cash Flow). Add conditional rendering to handle missing data gracefully with informative messages.",
+            "status": "done",
+            "testStrategy": "Test that charts render correctly with sample data and that missing data messages appear when appropriate."
+          },
+          {
+            "id": 4,
+            "title": "Create Income Statement Section",
+            "description": "Implement the UI section for displaying Income Statement data with appropriate charts and responsive layout.",
+            "dependencies": [],
+            "details": "Create the Income Statement section with Typography header. Implement a Grid container with responsive breakpoints. Use the FinancialCharts component to display relevant chart types (revenueAnalysis, expensesBreakdown, profitMargins). Add conditional rendering to handle missing data gracefully. Ensure the profitMargins chart spans the full width of the container.",
+            "status": "done",
+            "testStrategy": "Test that all three chart types render correctly with sample data and that missing data message appears when appropriate."
+          },
+          {
+            "id": 5,
+            "title": "Add Routing and Final Integration",
+            "description": "Add the new route to the application router and ensure the component integrates properly with the existing application.",
+            "dependencies": [],
+            "details": "Add a new route in the application router configuration that points to the AllKindResultPage component: `<Route path=\"/view-results/all\" element={<AllKindResultPage />} />`. Ensure the component follows existing design patterns from BaseResultsPage. Verify that the component is properly exported and can be imported by the router. Test the navigation to this page from other parts of the application.",
+            "status": "done",
+            "testStrategy": "Test navigation to the page using React Router testing utilities. Verify that the component mounts correctly when the route is accessed."
+          }
+        ]
+      },
+      {
+        "id": 19,
+        "title": "Update Navigation Logic for Multiple Type Selection",
+        "description": "Modify the upload completion flow in UploadDocumentsPage.tsx to handle \"Multiple Type\" document selection and navigate to AllKindResultPage appropriately.",
+        "details": "This task involves updating the navigation logic in the UploadDocumentsPage component to properly handle scenarios where users select multiple document types during upload.\n\nImplementation steps:\n\n1. Locate and modify the `handleUploadComplete` function in UploadDocumentsPage.tsx:\n```tsx\n// Update the existing function to detect multiple document types\nconst handleUploadComplete = (uploadedDocuments: UploadedDocument[]) => {\n  try {\n    // Store uploaded documents in session storage\n    sessionStorage.setItem('uploadedDocuments', JSON.stringify(uploadedDocuments));\n    \n    // Determine if multiple document types are present\n    const documentTypes = new Set(uploadedDocuments.map(doc => doc.documentType));\n    \n    // If multiple types are detected, navigate to AllKindResultPage\n    if (documentTypes.size > 1) {\n      // Store a flag indicating multiple types were selected\n      sessionStorage.setItem('isMultipleDocumentTypes', 'true');\n      navigate('/processing-documents?type=multiple');\n    } else {\n      // Existing logic for single document type\n      const documentType = uploadedDocuments[0]?.documentType || 'unknown';\n      sessionStorage.setItem('documentType', documentType);\n      sessionStorage.setItem('isMultipleDocumentTypes', 'false');\n      navigate(`/processing-documents?type=${documentType}`);\n    }\n  } catch (error) {\n    console.error('Error handling upload completion:', error);\n    // Display error notification to user\n    setUploadError('Failed to process uploaded documents. Please try again.');\n  }\n};\n```\n\n2. Update the ProcessingDocumentsPage component to handle the \"multiple\" type parameter:\n```tsx\n// In ProcessingDocumentsPage.tsx\nuseEffect(() => {\n  const params = new URLSearchParams(location.search);\n  const documentType = params.get('type');\n  \n  // Handle multiple document types\n  if (documentType === 'multiple') {\n    // After processing is complete, navigate to AllKindResultPage\n    setTimeout(() => {\n      navigate('/results/all-kind');\n    }, PROCESSING_DELAY);\n  } else {\n    // Existing logic for single document types\n    // ...\n  }\n}, []);\n```\n\n3. Add error handling for navigation edge cases:\n```tsx\n// Add fallback logic in case of navigation errors\nif (!documentType || documentType === 'unknown') {\n  console.error('Unknown document type detected');\n  // Provide a fallback navigation option\n  navigate('/upload-documents', { \n    state: { error: 'Unable to process documents. Please try again.' } \n  });\n}\n```\n\n4. Ensure proper session storage handling for multiple type uploads:\n```tsx\n// Store additional metadata for multiple document types\nif (documentTypes.size > 1) {\n  sessionStorage.setItem('documentTypes', JSON.stringify([...documentTypes]));\n  sessionStorage.setItem('primaryDocumentType', 'multiple');\n}\n```\n\n5. Update any relevant type definitions:\n```tsx\n// Add to existing type definitions if needed\ntype DocumentType = 'balance-sheet' | 'income-statement' | 'cash-flow' | 'assets' | 'multiple';\n```",
+        "testStrategy": "1. Unit Testing:\n   - Create unit tests for the updated `handleUploadComplete` function:\n   ```tsx\n   test('handleUploadComplete navigates to AllKindResultPage when multiple document types are detected', () => {\n     // Mock navigate function\n     const mockNavigate = jest.fn();\n     jest.mock('react-router-dom', () => ({\n       ...jest.requireActual('react-router-dom'),\n       useNavigate: () => mockNavigate\n     }));\n     \n     // Mock documents with multiple types\n     const mockDocuments = [\n       { id: '1', documentType: 'balance-sheet', fileName: 'balance.pdf' },\n       { id: '2', documentType: 'income-statement', fileName: 'income.pdf' }\n     ];\n     \n     // Call the function\n     handleUploadComplete(mockDocuments);\n     \n     // Verify navigation and session storage\n     expect(mockNavigate).toHaveBeenCalledWith('/processing-documents?type=multiple');\n     expect(sessionStorage.getItem('isMultipleDocumentTypes')).toBe('true');\n   });\n   ```\n\n2. Integration Testing:\n   - Test the complete upload flow with multiple document types:\n     - Upload documents of different types\n     - Verify correct navigation to processing page\n     - Confirm navigation to AllKindResultPage after processing\n     - Check that the correct data is displayed on the AllKindResultPage\n\n3. Edge Case Testing:\n   - Test with a single document type to ensure existing functionality works\n   - Test with empty document array\n   - Test with invalid document types\n   - Test with very large numbers of documents\n   - Test session storage limits with large document sets\n\n4. User Flow Testing:\n   - Verify the user experience remains intuitive when selecting multiple document types\n   - Test the back navigation from AllKindResultPage\n   - Ensure proper error messages are displayed when issues occur\n\n5. Browser Compatibility:\n   - Test the updated navigation logic across different browsers\n   - Verify session storage works consistently across browsers\n\n6. Error Handling:\n   - Simulate network errors during navigation\n   - Test with corrupted session storage data\n   - Verify error messages are user-friendly and actionable",
+        "status": "done",
+        "dependencies": [
+          7,
+          18,
+          "17"
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 20,
+        "title": "Add Route Configuration for AllKindResultPage",
+        "description": "Register a new route for AllKindResultPage in App.tsx to enable navigation to the comprehensive analysis page that displays all chart types in a single unified view.",
+        "details": "This task involves adding and configuring a new route in the application's routing system to support the AllKindResultPage component.\n\nImplementation steps:\n\n1. Locate App.tsx and identify the existing route structure:\n```tsx\n// In App.tsx\nimport { AllKindResultPage } from './pages/ViewResults/AllKindResultPage';\n\n// Find the existing Routes component\n<Routes>\n  {/* Existing routes */}\n  <Route path=\"/view-results/balance-sheet\" element={<BalanceSheetResultsPage />} />\n  <Route path=\"/view-results/cash-flow\" element={<CashFlowResultsPage />} />\n  <Route path=\"/view-results/income-statement\" element={<IncomeStatementResultsPage />} />\n  {/* Add new route here */}\n</Routes>\n```\n\n2. Add the new route for the AllKindResultPage:\n```tsx\n<Route path=\"/view-results/all-kinds\" element={<AllKindResultPage />} />\n```\n\n3. Ensure proper route protection by wrapping the route with any existing authentication or protection components:\n```tsx\n<Route \n  path=\"/view-results/all-kinds\" \n  element={\n    <ProtectedRoute>\n      <AllKindResultPage />\n    </ProtectedRoute>\n  } \n/>\n```\n\n4. Verify route ordering to prevent conflicts with existing routes:\n   - Place the new route after specific document type routes to ensure they take precedence\n   - Ensure no wildcard or parameter-based routes could accidentally capture this path\n\n5. Add error handling for the route:\n```tsx\n<Route \n  path=\"/view-results/all-kinds\" \n  element={\n    <ErrorBoundary fallback={<ErrorPage />}>\n      <ProtectedRoute>\n        <AllKindResultPage />\n      </ProtectedRoute>\n    </ErrorBoundary>\n  } \n/>\n```\n\n6. Update any navigation components or links that should direct to this new route:\n```tsx\n// Example update to navigation component\n<Button \n  onClick={() => navigate('/view-results/all-kinds')}\n  variant=\"contained\"\n>\n  View Comprehensive Analysis\n</Button>\n```",
+        "testStrategy": "1. Unit Testing:\n   - Create unit tests for the App component to verify the new route is properly registered:\n   ```tsx\n   test('renders AllKindResultPage when navigating to /view-results/all-kinds', () => {\n     render(\n       <MemoryRouter initialEntries={['/view-results/all-kinds']}>\n         <App />\n       </MemoryRouter>\n     );\n     \n     // Verify AllKindResultPage is rendered\n     expect(screen.getByTestId('all-kind-result-page')).toBeInTheDocument();\n   });\n   ```\n\n2. Integration Testing:\n   - Test navigation to the new route from various parts of the application:\n     - From the upload completion flow\n     - From the document type navigation component\n     - From direct URL entry\n   - Verify proper parameter handling if any parameters are passed to the route\n   - Test browser history navigation (back/forward) with the new route\n\n3. End-to-End Testing:\n   - Create an E2E test that navigates to the new route and verifies the AllKindResultPage loads correctly\n   - Test that all charts and data are properly displayed on the page\n   - Verify that navigation between routes maintains proper state\n\n4. Error Handling Testing:\n   - Test the route with invalid parameters or state\n   - Verify error boundaries catch and display errors appropriately\n   - Test authentication/authorization if route protection is implemented\n\n5. Manual Testing:\n   - Manually navigate to the route in different browsers\n   - Verify the URL structure is correct in the address bar\n   - Test bookmarking and sharing the URL",
+        "status": "done",
+        "dependencies": [
+          18,
+          19
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 21,
+        "title": "Enhance Data Handling for Missing Financial Data",
+        "description": "Improve data display and error handling for missing or incomplete financial data across all chart types in the AllKindResultPage.",
+        "details": "This task involves enhancing the AllKindResultPage component to gracefully handle missing or incomplete financial data:\n\n1. Implement fallback UI components:\n```tsx\n// Create a reusable NoDataAvailable component\nconst NoDataAvailable = ({ message = \"Data is not available to display\" }: { message?: string }) => (\n  <Box \n    sx={{ \n      display: 'flex', \n      flexDirection: 'column', \n      alignItems: 'center', \n      justifyContent: 'center',\n      p: 3,\n      border: '1px dashed #ccc',\n      borderRadius: 1,\n      backgroundColor: '#f9f9f9',\n      minHeight: '200px'\n    }}\n  >\n    <InfoOutlinedIcon sx={{ fontSize: 48, color: 'text.secondary', mb: 2 }} />\n    <Typography variant=\"body1\" color=\"text.secondary\" align=\"center\">\n      {message}\n    </Typography>\n  </Box>\n);\n```\n\n2. Enhance chart components to handle missing data:\n```tsx\n// Update chart rendering in AllKindResultPage.tsx\nconst renderChart = (chartType: string, data: any) => {\n  // Check if data exists and has required properties\n  if (!data || !data.labels || !data.datasets || data.datasets.length === 0) {\n    return (\n      <NoDataAvailable \n        message={`${chartType} data is not available or incomplete. Please upload a document with complete ${chartType} information.`} \n      />\n    );\n  }\n  \n  // Render appropriate chart based on chartType\n  switch (chartType) {\n    case 'barChart':\n      return <BarChart data={data} />;\n    case 'lineChart':\n      return <LineChart data={data} />;\n    // Other chart types...\n    default:\n      return <NoDataAvailable message=\"Unknown chart type\" />;\n  }\n};\n```\n\n3. Implement loading states for data availability checks:\n```tsx\n// In AllKindResultPage.tsx\nconst [dataLoadingStates, setDataLoadingStates] = useState({\n  balanceSheet: true,\n  cashFlow: true,\n  incomeStatement: true,\n  assets: true\n});\n\n// Update loading state for specific data type\nconst updateLoadingState = (dataType: keyof typeof dataLoadingStates, isLoading: boolean) => {\n  setDataLoadingStates(prev => ({\n    ...prev,\n    [dataType]: isLoading\n  }));\n};\n\n// Render loading or content based on state\nconst renderSection = (dataType: keyof typeof dataLoadingStates, content: React.ReactNode) => {\n  return dataLoadingStates[dataType] ? (\n    <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>\n      <CircularProgress size={40} />\n    </Box>\n  ) : content;\n};\n```\n\n4. Implement consistent error handling across chart types:\n```tsx\n// Add error handling to data fetching in AllKindResultPage.tsx\nuseEffect(() => {\n  const fetchData = async () => {\n    try {\n      // Set all loading states to true\n      Object.keys(dataLoadingStates).forEach(key => {\n        updateLoadingState(key as keyof typeof dataLoadingStates, true);\n      });\n      \n      // Fetch data for each financial document type\n      const balanceSheetData = await getFilteredFinancialData('balance-sheet');\n      updateLoadingState('balanceSheet', false);\n      setBalanceSheetData(balanceSheetData || null);\n      \n      const cashFlowData = await getFilteredFinancialData('cash-flow');\n      updateLoadingState('cashFlow', false);\n      setCashFlowData(cashFlowData || null);\n      \n      // Continue for other data types...\n    } catch (error) {\n      // Handle errors and update UI accordingly\n      console.error('Error fetching financial data:', error);\n      setError('Failed to load financial data. Please try again later.');\n      \n      // Set all loading states to false\n      Object.keys(dataLoadingStates).forEach(key => {\n        updateLoadingState(key as keyof typeof dataLoadingStates, false);\n      });\n    }\n  };\n  \n  fetchData();\n}, []);\n```\n\n5. Add user-friendly messaging for different data scenarios:\n```tsx\n// Define different message types based on data scenarios\nconst getDataMessage = (dataType: string, errorType?: string) => {\n  switch (errorType) {\n    case 'missing':\n      return `No ${dataType} data available. Please upload a document containing ${dataType} information.`;\n    case 'incomplete':\n      return `The ${dataType} data is incomplete. Some charts may not display correctly.`;\n    case 'format':\n      return `The ${dataType} data format is incorrect. Please ensure you're uploading a valid financial document.`;\n    case 'processing':\n      return `There was an error processing the ${dataType} data. Please try uploading the document again.`;\n    default:\n      return `${dataType} data is not available to display.`;\n  }\n};\n```\n\n6. Ensure accessibility compliance for error states:\n```tsx\n// Update NoDataAvailable component with accessibility attributes\nconst NoDataAvailable = ({ message = \"Data is not available to display\", errorType = \"info\" }: { message?: string, errorType?: \"info\" | \"warning\" | \"error\" }) => {\n  // Choose icon based on error type\n  const IconComponent = errorType === \"error\" ? ErrorOutlineIcon : \n                        errorType === \"warning\" ? WarningAmberIcon : \n                        InfoOutlinedIcon;\n  \n  return (\n    <Box \n      role=\"alert\"\n      aria-live=\"polite\"\n      sx={{ \n        display: 'flex', \n        flexDirection: 'column', \n        alignItems: 'center', \n        justifyContent: 'center',\n        p: 3,\n        border: '1px dashed #ccc',\n        borderRadius: 1,\n        backgroundColor: '#f9f9f9',\n        minHeight: '200px'\n      }}\n    >\n      <IconComponent \n        sx={{ \n          fontSize: 48, \n          color: errorType === \"error\" ? \"error.main\" : \n                 errorType === \"warning\" ? \"warning.main\" : \n                 \"text.secondary\", \n          mb: 2 \n        }} \n      />\n      <Typography variant=\"body1\" color=\"text.secondary\" align=\"center\">\n        {message}\n      </Typography>\n    </Box>\n  );\n};\n```\n\n7. Integration with existing components:\n   - Update the AllKindResultPage to use these enhanced error handling components\n   - Ensure consistent error handling across all chart types\n   - Maintain visual consistency with the rest of the application",
+        "testStrategy": "1. Unit Testing:\n   - Create unit tests for the NoDataAvailable component:\n   ```tsx\n   test('NoDataAvailable renders with default message', () => {\n     render(<NoDataAvailable />);\n     expect(screen.getByText('Data is not available to display')).toBeInTheDocument();\n   });\n   \n   test('NoDataAvailable renders with custom message', () => {\n     render(<NoDataAvailable message=\"Custom error message\" />);\n     expect(screen.getByText('Custom error message')).toBeInTheDocument();\n   });\n   \n   test('NoDataAvailable uses correct icon based on error type', () => {\n     const { rerender } = render(<NoDataAvailable errorType=\"info\" />);\n     expect(screen.getByRole('alert')).toBeInTheDocument();\n     \n     rerender(<NoDataAvailable errorType=\"warning\" />);\n     expect(screen.getByRole('alert')).toBeInTheDocument();\n     \n     rerender(<NoDataAvailable errorType=\"error\" />);\n     expect(screen.getByRole('alert')).toBeInTheDocument();\n   });\n   ```\n\n2. Integration Testing:\n   - Test the AllKindResultPage with various data scenarios:\n   ```tsx\n   test('AllKindResultPage handles missing data correctly', async () => {\n     // Mock getFilteredFinancialData to return null for balance sheet\n     jest.spyOn(dataUtils, 'getFilteredFinancialData').mockImplementation((docType) => {\n       if (docType === 'balance-sheet') return Promise.resolve(null);\n       return Promise.resolve(mockFinancialData);\n     });\n     \n     render(<AllKindResultPage />);\n     \n     // Verify loading state appears\n     expect(screen.getAllByRole('progressbar')).toHaveLength(4);\n     \n     // Wait for data to load\n     await waitForElementToBeRemoved(() => screen.getAllByRole('progressbar'));\n     \n     // Verify error message for balance sheet\n     expect(screen.getByText(/balance sheet data is not available/i)).toBeInTheDocument();\n     \n     // Verify other charts render correctly\n     expect(screen.getByTestId('cash-flow-chart')).toBeInTheDocument();\n   });\n   ```\n\n3. Visual Testing:\n   - Verify that error states are visually consistent with the application design\n   - Check that loading indicators display correctly\n   - Ensure error messages are clearly visible and properly formatted\n\n4. Accessibility Testing:\n   - Test with screen readers to ensure error messages are properly announced\n   - Verify that all error states have appropriate ARIA attributes\n   - Check color contrast for error messages meets WCAG standards\n   - Test keyboard navigation through error states\n\n5. Edge Case Testing:\n   - Test with partially complete data (some metrics missing)\n   - Test with malformed data structures\n   - Test with empty arrays or objects instead of null values\n   - Test with extremely large datasets to ensure performance\n   - Test with multiple simultaneous data loading failures\n\n6. User Acceptance Testing:\n   - Verify that error messages are understandable to end users\n   - Ensure that users can easily understand what action to take when data is missing\n   - Check that the UI remains usable even when some data sections fail to load",
+        "status": "done",
+        "dependencies": [
+          18,
+          14,
+          8
+        ],
+        "priority": "medium",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Update ViewResults/index.ts to Export AllKindResultPage",
+        "description": "Update the ViewResults/index.ts file to export the new AllKindResultPage component and related utilities to maintain proper module organization.",
+        "details": "This task involves updating the ViewResults/index.ts file to properly export the AllKindResultPage component and any related utilities:\n\n1. Locate the existing ViewResults/index.ts file and add the new export:\n```tsx\n// ViewResults/index.ts\n\n// Existing exports\nexport { ViewResultsPage } from './ViewResultsPage';\nexport { BaseResultsPage } from './BaseResultsPage';\nexport { useBaseResultsPage } from './hooks/useBaseResultsPage';\nexport { BalanceSheetResultsPage } from './BalanceSheetResultsPage';\n// ... other existing exports\n\n// Add new exports\nexport { AllKindResultPage } from './AllKindResultPage';\n// Export any related types or utilities specific to AllKindResultPage\nexport type { AllKindResultPageProps } from './AllKindResultPage';\nexport { useAllKindResultData } from './hooks/useAllKindResultData'; // If such a hook exists\n```\n\n2. Verify the import paths are correct and the components exist at the specified locations.\n\n3. Check for any additional types, interfaces, or utility functions that should be exported alongside the AllKindResultPage component.\n\n4. Ensure the export structure follows the established pattern in the codebase.\n\n5. Review for potential circular dependencies:\n   - Check that AllKindResultPage doesn't import from index.ts\n   - Verify that components imported by AllKindResultPage don't create circular reference chains\n\n6. Update any JSDoc comments or module documentation to reflect the new exports.\n\n7. If there are any re-exports of types from external libraries that are used by AllKindResultPage, ensure those are also included.",
+        "testStrategy": "1. Verify the export syntax is correct:\n   - Run TypeScript compiler to check for any syntax or type errors\n   - Ensure no duplicate exports exist\n\n2. Test importing the component from the index file:\n   ```tsx\n   import { AllKindResultPage } from '../pages/ViewResults';\n   ```\n\n3. Create a simple test component that imports and renders the AllKindResultPage:\n   ```tsx\n   import React from 'react';\n   import { render } from '@testing-library/react';\n   import { AllKindResultPage } from '../pages/ViewResults';\n   \n   test('AllKindResultPage can be imported from index', () => {\n     const { container } = render(<AllKindResultPage />);\n     expect(container).toBeInTheDocument();\n   });\n   ```\n\n4. Check for circular dependencies:\n   - Use a tool like `madge` to analyze the dependency graph:\n   ```\n   npx madge --circular --extensions ts,tsx src/\n   ```\n\n5. Verify the build process completes successfully:\n   - Run the build command to ensure no compilation errors\n   - Check that the bundled output includes the new component\n\n6. Test the application in development mode:\n   - Start the development server\n   - Navigate to routes that use the AllKindResultPage\n   - Verify the component loads correctly\n\n7. Check import statements in existing files that should use the new exports to ensure they're importing from the index file rather than directly from the component file.",
+        "status": "done",
+        "dependencies": [
+          18,
+          13
+        ],
+        "priority": "low",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-17T04:50:57.899Z",
+      "updated": "2025-06-17T06:41:41.672Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
